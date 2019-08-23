@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace NewellClark.DataStructures.Collections.Tests
 {
 	[TestFixture]
-	public abstract class SetTests
+	public abstract class SetBaseTests
 	{
 		protected abstract ISet<T> Create<T>();
 
@@ -408,8 +408,8 @@ namespace NewellClark.DataStructures.Collections.Tests
 	}
 
 	[TestFixture]
-	public class SetWrapperTests : SetTests
+	public class SetTests : SetBaseTests
 	{
-		protected override ISet<T> Create<T>() => new SetWrapper<T>();
+		protected override ISet<T> Create<T>() => new Set<T>();
 	}
 }

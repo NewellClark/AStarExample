@@ -6,25 +6,69 @@ using System.Threading.Tasks;
 
 namespace NewellClark.DataStructures.Collections
 {
-
-	public abstract class SetBase<T> : ISet<T>
+	/// <summary>
+	/// Base class for implementing the <see cref="ISet{T}"/> interface. Provides default implementations
+	/// of all the set operations, which can optionally be overridden. 
+	/// </summary>
+	/// <typeparam name="T"></typeparam>
+	public abstract class SetBase<T> : ISet<T>, IReadOnlyCollection<T>
 	{
 		protected SetBase() { }
 
+		/// <summary>
+		/// Adds the specified item to the set if it doesn't exist.
+		/// </summary>
+		/// <param name="item">The item to add.</param>
+		/// <returns>True if the item was added, false otherwise.</returns>
 		public bool Add(T item) => AddItem(item);
 
+		/// <summary>
+		/// Removes the specified item from the set.
+		/// </summary>
+		/// <param name="item">The item to remove.</param>
+		/// <returns>True if the item was removed. False otherwise.</returns>
 		public bool Remove(T item) => RemoveItem(item);
 
+		/// <summary>
+		/// Indicates whether the specified item is in the set.
+		/// </summary>
+		/// <param name="item">The item to look for.</param>
+		/// <returns>True if the item is in the set. False otherwise.</returns>
 		public bool Contains(T item) => ContainsItem(item);
 
+		/// <summary>
+		/// Removes all items from the set.
+		/// </summary>
 		public void Clear() => ClearItems();
 
+		/// <summary>
+		/// When overridden in a derived class, adds the specified item to the set. This is called by the
+		/// <see cref="SetBase{T}.Add(T)"/> method.
+		/// </summary>
+		/// <param name="item">The item to add.</param>
+		/// <returns>True if the item was added. False otherwise.</returns>
 		protected abstract bool AddItem(T item);
 
+		/// <summary>
+		/// When overridden in a derived class, removes the specified item from the set. This is called by the
+		/// <see cref="SetBase{T}.Remove(T)"/> method.
+		/// </summary>
+		/// <param name="item">The item to remove.</param>
+		/// <returns>True if the item was removed, false otherwise.</returns>
 		protected abstract bool RemoveItem(T item);
 
+		/// <summary>
+		/// When overridden in a derived class, indicates whether the specified item is in the set. This is called by the
+		/// <see cref="SetBase{T}.Contains(T)"/> method.
+		/// </summary>
+		/// <param name="item">The item to search for.</param>
+		/// <returns>True if the item is in the set. False otherwise</returns>
 		protected abstract bool ContainsItem(T item);
 
+		/// <summary>
+		/// When overridden in a derived class, clears all items from the set. This is called by the
+		/// <see cref="SetBase{T}.Clear"/> method.
+		/// </summary>
 		protected abstract void ClearItems();
 
 		/// <summary>
@@ -32,10 +76,21 @@ namespace NewellClark.DataStructures.Collections
 		/// </summary>
 		public abstract IEqualityComparer<T> Comparer { get; }
 
+		/// <summary>
+		/// When overridden in a derived class, gets an enumerator that enumerates over the collection.
+		/// </summary>
+		/// <returns>An enumerator that can enumerate the collection.</returns>
 		public abstract IEnumerator<T> GetEnumerator();
 
+		/// <summary>
+		/// When overridden in a derived class, gets the number of items in the set.
+		/// </summary>
 		public abstract int Count { get; }
 
+		/// <summary>
+		/// When overridden in a derived class, gets a value indicating whether the current <see cref="SetBase{T}"/> is
+		/// read-only.
+		/// </summary>
 		public abstract bool IsReadOnly { get; }
 
 		/// <summary>

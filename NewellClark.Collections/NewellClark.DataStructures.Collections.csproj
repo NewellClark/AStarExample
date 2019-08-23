@@ -45,7 +45,7 @@
     <Compile Include="PriorityQueue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SetBase.cs" />
-    <Compile Include="SetWrapper.cs" />
+    <Compile Include="Set.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

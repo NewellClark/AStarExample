@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,6 +34,38 @@ namespace NewellClark.DataStructures.Collections
 			}
 
 			return result;
+		}
+
+		/// <summary>
+		/// Wraps the current <see cref="ICollection{T}"/> in a read-only wrapper.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="this"></param>
+		/// <returns>A read-only wrapper that wraps the current <see cref="ICollection{T}"/>.</returns>
+		public static IReadOnlyCollection<T> AsReadOnly<T>(this ICollection<T> @this)
+		{
+			if (@this == null)
+				throw new ArgumentNullException(nameof(@this));
+
+			return new ReadOnlyCollectionWrapper<T>(@this);
+		}
+
+		private class ReadOnlyCollectionWrapper<T> : IReadOnlyCollection<T>
+		{
+			private readonly ICollection<T> _inner;
+
+			public ReadOnlyCollectionWrapper(ICollection<T> inner)
+			{
+				Debug.Assert(inner != null);
+
+				_inner = inner;
+			}
+
+			public int Count => _inner.Count;
+
+			public IEnumerator<T> GetEnumerator() => _inner.GetEnumerator();
+
+			System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 		}
 	}
 }
