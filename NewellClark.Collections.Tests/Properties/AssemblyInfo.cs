@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("NewellClark.Collections")]
+[assembly: AssemblyTitle("NewellClark.Collections.Tests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Newell-Clark")]
-[assembly: AssemblyProduct("NewellClark.Collections")]
+[assembly: AssemblyProduct("NewellClark.Collections.Tests")]
 [assembly: AssemblyCopyright("Copyright © Newell-Clark 2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -18,10 +18,9 @@ using System.Runtime.InteropServices;
 // to COM components.  If you need to access a type in this assembly from
 // COM, set the ComVisible attribute to true on that type.
 [assembly: ComVisible(false)]
-[assembly: InternalsVisibleTo("NewellClark.DataStructures.Collections.Tests")]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("a28d7b4e-514b-4936-b34e-e88693eaa7b7")]
+[assembly: Guid("a943eabd-09d8-4efb-9b74-a7643e9d59bb")]
 
 // Version information for an assembly consists of the following four values:
 //
