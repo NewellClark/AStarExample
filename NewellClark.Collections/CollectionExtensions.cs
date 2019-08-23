@@ -22,7 +22,7 @@ namespace NewellClark.DataStructures.Collections
 		/// </returns>
 		public static TValue GetOrAdd<TKey, TValue>(this IDictionary<TKey, TValue> @this, TKey key, Func<TKey, TValue> valueFactory)
 		{
-			if (@this is null) throw new ArgumentNullException(nameof(@this));
+			if (@this is null) throw new ArgumentNullException(nameof(@this)); 
 			if (ReferenceEquals(key, null)) throw new ArgumentNullException(nameof(key));
 			if (valueFactory is null) throw new ArgumentNullException(nameof(valueFactory));
 
