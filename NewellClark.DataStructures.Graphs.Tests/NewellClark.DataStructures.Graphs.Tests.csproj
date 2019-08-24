@@ -50,6 +50,7 @@
     <Compile Include="GraphNodeExtensions.cs" />
     <Compile Include="GraphNodeTests.cs" />
     <Compile Include="GraphNodeTests.NeighborCollectionTests.cs" />
+    <Compile Include="PathTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

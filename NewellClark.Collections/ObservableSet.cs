@@ -6,14 +6,32 @@ using System.Threading.Tasks;
 
 namespace NewellClark.DataStructures.Collections
 {
+	/// <summary>
+	/// A set that raises an event whenever items are added or removed. 
+	/// </summary>
+	/// <typeparam name="T"></typeparam>
 	public class ObservableSet<T> : Set<T>
 	{
+		/// <summary>
+		/// Creates a new <see cref="ObservableSet{T}"/>.
+		/// </summary>
 		public ObservableSet() : base() { }
+
+		/// <summary>
+		/// Creates a new <see cref="ObservableSet{T}"/> with the specified <see cref="IEqualityComparer{T}"/>.
+		/// </summary>
+		/// <param name="comparer">The comparer to use.</param>
 		public ObservableSet(IEqualityComparer<T> comparer) : base(comparer) { }
 
 		/// <summary>
-		/// Raised when items are added or removed from the set.
+		/// Raised when items are added or removed from the set. The <see cref="SetChangedEventArgs{T}"/> instance 
+		/// contains collections of all the items that were added and/or removed.
 		/// </summary>
+		/// <remarks>
+		/// When multiple items are added or removed in a single operation (ie by calling <see cref="SetBase{T}.Clear<"/> or
+		/// one of the set operations that modifies the set such as <see cref="SetBase{T}.ExceptWith(IEnumerable{T})"/>), the 
+		/// implementation is free to combine all added or removed items into a single event, but is not required to do so. 
+		/// </remarks>
 		public event EventHandler<SetChangedEventArgs<T>> SetChanged;
 
 		/// <summary>
