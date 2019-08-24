@@ -10,6 +10,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewellClark.DataStructures.
 		{A28D7B4E-514B-4936-B34E-E88693EAA7B7} = {A28D7B4E-514B-4936-B34E-E88693EAA7B7}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewellClark.DataStructures.Graphs", "NewellClark.DataStructures.Graphs\NewellClark.DataStructures.Graphs.csproj", "{55C42878-923D-4CDB-B53A-9CFF48E54876}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewellClark.DataStructures.Graphs.Tests", "NewellClark.DataStructures.Graphs.Tests\NewellClark.DataStructures.Graphs.Tests.csproj", "{74AA3D92-DFF3-484F-A861-8C4C6AED2DFA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,6 +28,14 @@ Global
 		{A943EABD-09D8-4EFB-9B74-A7643E9D59BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A943EABD-09D8-4EFB-9B74-A7643E9D59BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A943EABD-09D8-4EFB-9B74-A7643E9D59BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55C42878-923D-4CDB-B53A-9CFF48E54876}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55C42878-923D-4CDB-B53A-9CFF48E54876}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55C42878-923D-4CDB-B53A-9CFF48E54876}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55C42878-923D-4CDB-B53A-9CFF48E54876}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74AA3D92-DFF3-484F-A861-8C4C6AED2DFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74AA3D92-DFF3-484F-A861-8C4C6AED2DFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74AA3D92-DFF3-484F-A861-8C4C6AED2DFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74AA3D92-DFF3-484F-A861-8C4C6AED2DFA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
