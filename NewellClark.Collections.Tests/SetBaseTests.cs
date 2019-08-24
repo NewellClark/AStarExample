@@ -21,18 +21,18 @@ namespace NewellClark.DataStructures.Collections.Tests
 			return result;
 		}
 
-		private IEnumerable<T> Sequence<T>(params T[] items) => items.AsEnumerable();
+		protected IEnumerable<T> Sequence<T>(params T[] items) => items.AsEnumerable();
 
-		private void AddAll<T>(ISet<T> set, params T[] items)
+		protected void AddAll<T>(ISet<T> set, params T[] items)
 		{
 			foreach (var item in items)
 				set.Add(item);
 		}
 
-		private ISet<int> set;
+		protected ISet<int> set;
 
 		[SetUp]
-		public void Initialize() => set = Create<int>();
+		public virtual void Initialize() => set = Create<int>();
 
 		[Test]
 		public void Add_WillNotAddDuplicates()
