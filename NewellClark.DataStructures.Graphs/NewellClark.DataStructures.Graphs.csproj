@@ -47,6 +47,7 @@
     <Compile Include="AStar.cs" />
     <Compile Include="GraphNode.cs" />
     <Compile Include="GraphNode.NeighborCollection.cs" />
+    <Compile Include="GraphWithEdges.cs" />
     <Compile Include="IHasNeighbors.cs" />
     <Compile Include="Path.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

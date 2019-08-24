@@ -35,11 +35,12 @@ namespace NewellClark.DataStructures.Graphs
 	}
 
 	/// <summary>
-	/// An immutable path of nodes that calculates the total cost of traversal.
+	/// An immutable path of nodes that calculates the total cost of traversal by using user-supplied
+	/// cost functions.
 	/// </summary>
 	/// <typeparam name="TNode">The type of each node in the path.</typeparam>
 	/// <typeparam name="TCost">The type used to compute the cost of traversing the path.</typeparam>
-	public class Path<TNode, TCost> 
+	public class Path<TNode, TCost> : IImmutableStack<TNode>
 	{
 		private readonly CommonMembers _common;
 		private readonly ImmutableStack<Path<TNode, TCost>> _stack;
@@ -51,13 +52,13 @@ namespace NewellClark.DataStructures.Graphs
 			Debug.Assert(costFunction != null);
 			Debug.Assert(costAdder != null);
 
-			_common = new CommonMembers(costFunction, costAdder);
 			_stack = ImmutableStack<Path<TNode, TCost>>.Empty;
 			Cost = initial;
+			_common = new CommonMembers(this, costFunction, costAdder);
 		}
 
 		//	Push constructor.
-		internal Path(Path<TNode, TCost> tail, TNode head)
+		private Path(Path<TNode, TCost> tail, TNode head)
 		{
 			Debug.Assert(tail != null);
 
@@ -95,20 +96,6 @@ namespace NewellClark.DataStructures.Graphs
 		}
 
 		/// <summary>
-		/// Creates a new path by removing the node from the head of the current path. The current path is 
-		/// not modified.
-		/// </summary>
-		/// <returns>
-		/// A new path created by removing the head from the current path.
-		/// </returns>
-		public Path<TNode, TCost> Pop()
-		{
-			ThrowIfEmpty();
-
-			return _stack.Peek();
-		}
-
-		/// <summary>
 		/// Creates a new path by pushing the specified node to the end of the current path. The current path instance
 		/// is not modified.
 		/// </summary>
@@ -120,11 +107,76 @@ namespace NewellClark.DataStructures.Graphs
 		}
 
 		/// <summary>
+		/// Creates a new path by removing the node from the head of the current path. The current path is 
+		/// not modified.
+		/// </summary>
+		/// <returns>
+		/// A new path created by removing the head from the current path.
+		/// </returns>
+		public Path<TNode, TCost> Pop()
+		{
+			ThrowIfEmpty();
+
+			Debug.Assert(_stack.Peek() != null);
+
+			return _stack.Peek();
+		}
+
+		/// <summary>
+		/// Creates a new <see cref="Path{TNode, TCost}"/> by removing 
+		/// all nodes from the current <see cref="Path{TNode, TCost}"/>.
+		/// </summary>
+		/// <returns>
+		/// A new <see cref="Path{TNode, TCost}"/> created by removing all nodes from 
+		/// the current <see cref="Path{TNode, TCost}"/>.
+		/// </returns>
+		/// <remarks>
+		/// Does not modify the current <see cref="Path{TNode, TCost}"/>.
+		/// </remarks>
+		public Path<TNode, TCost> Clear() => _common.EmptyPath;
+
+		/// <summary>
+		/// Gets an enumerator that enumerates through the current <see cref="Path{TNode, TCost}"/>, starting with 
+		/// the head node. 
+		/// </summary>
+		/// <returns>
+		/// An enumerator that can be used to enumerate through the current <see cref="Path{TNode, TCost}"/>, starting
+		/// with the head node.
+		/// </returns>
+		public IEnumerator<TNode> GetEnumerator()
+		{
+			for (var path = this; !path.IsEmpty; path = path.Pop())
+				yield return path.Peek();
+		}
+
+		/// <summary>
 		/// Gets a sequence of all the nodes in the current <see cref="Path{TNode, TCost}"/>, starting with the 
 		/// head node.
 		/// </summary>
-		public IEnumerable<TNode> Nodes => throw new NotImplementedException();
+		public IEnumerable<TNode> Nodes
+		{
+			get
+			{
+				for (var path = this; !path.IsEmpty; path = path.Pop())
+				{
+					yield return path.Peek();
+				}
+			}
+		}
 
+
+		#region Explicit Interface Implementations
+		IImmutableStack<TNode> IImmutableStack<TNode>.Push(TNode value) => Push(value);
+
+		IImmutableStack<TNode> IImmutableStack<TNode>.Pop() => Pop();
+
+		IImmutableStack<TNode> IImmutableStack<TNode>.Clear() => Clear();
+
+		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
+		#endregion
+
+
+		#region Nested classes
 		/// <summary>
 		/// Contains members that are the same for all sub-paths in the current <see cref="Path{TNode, TCost}"/>.
 		/// </summary>
@@ -133,11 +185,17 @@ namespace NewellClark.DataStructures.Graphs
 			private readonly CostFunction<TNode, TCost> _costFunction;
 			private readonly CostAdder<TCost> _costAdder;
 
-			public CommonMembers(CostFunction<TNode, TCost> costFunction, CostAdder<TCost> costAdder)
+			public CommonMembers(
+				Path<TNode, TCost> emptyPath,
+				CostFunction<TNode, TCost> costFunction, 
+				CostAdder<TCost> costAdder)
 			{
+				Debug.Assert(emptyPath != null);
 				Debug.Assert(costFunction != null);
 				Debug.Assert(costAdder != null);
 
+				//	We can't assert that emptyPath is empty here because its ctor is still running.
+				EmptyPath = emptyPath;
 				_costFunction = costFunction;
 				_costAdder = costAdder;
 			}
@@ -145,7 +203,22 @@ namespace NewellClark.DataStructures.Graphs
 			public TCost CalculateCost(TNode left, TNode right) => _costFunction(left, right);
 
 			public TCost AddCosts(TCost left, TCost right) => _costAdder(left, right);
+
+			/// <summary>
+			/// Gets the instance of <see cref="Path{TNode, TCost}"/> at the root of the current path, before the first
+			/// node.
+			/// </summary>
+			/// <remarks>
+			/// We can't have a static property that returns a global empty-path 
+			/// instance because paths use supplied delegates to 
+			/// compute cost, so two empty paths with the same generic type arguments may be different if different
+			/// cost delegates were given to them. 
+			/// These delegates are used to produce a new <see cref="Path{TNode, TCost}"/> instance
+			/// when <see cref="Push(TNode)"/> is called.
+			/// </remarks>
+			public Path<TNode, TCost> EmptyPath { get; }
 		}
+		#endregion
 
 		private void ThrowIfEmpty()
 		{

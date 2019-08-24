@@ -46,7 +46,7 @@ namespace NewellClark.DataStructures.Graphs.Tests
 
 		private IEnumerable<T> Iterate<T>(params T[] items) => items.AsEnumerable();
 
-		private Path<Node, int> PushAll(Path<Node, int> path, params Node[] nodes)
+		private Path<Node, int> PushAll(Path<Node, int> path, IEnumerable<Node> nodes)
 		{
 			var result = path;
 			foreach (Node node in nodes)
@@ -54,6 +54,8 @@ namespace NewellClark.DataStructures.Graphs.Tests
 
 			return result;
 		}
+
+		private Path<Node, int> PushAll(Path<Node, int> path, params Node[] nodes) => PushAll(path, nodes.AsEnumerable());
 
 		[Test]
 		public void AnEmptyPath_HasInitialCost()
@@ -122,6 +124,7 @@ namespace NewellClark.DataStructures.Graphs.Tests
 			Node first = new Node(4);
 			Node second = new Node(9);
 			var original = Create().Push(first);
+			int originalCost = original.Cost;
 			var pushed = original.Push(second);
 
 			var expected = Iterate(first);
@@ -129,6 +132,7 @@ namespace NewellClark.DataStructures.Graphs.Tests
 			Assume.That(pushed.Nodes.SequenceEqual(Iterate(second, first)));
 
 			CollectionAssert.AreEqual(expected, original.Nodes);
+			Assert.AreEqual(originalCost, original.Cost);
 		}
 
 		[Test]
@@ -137,6 +141,7 @@ namespace NewellClark.DataStructures.Graphs.Tests
 			Node first = new Node(17);
 			Node second = new Node(6);
 			var original = Create().Push(first).Push(second);
+			int originalCost = original.Cost;
 			var popped = original.Pop();
 
 			Assume.That(popped.Nodes.SequenceEqual(Iterate(first)));
@@ -144,6 +149,7 @@ namespace NewellClark.DataStructures.Graphs.Tests
 			var expected = Iterate(second, first);
 
 			CollectionAssert.AreEqual(expected, original.Nodes);
+			Assert.AreEqual(originalCost, original.Cost);
 		}
 
 		[Test]
@@ -153,8 +159,78 @@ namespace NewellClark.DataStructures.Graphs.Tests
 			var empty = original.Pop();
 
 			CollectionAssert.IsEmpty(empty.Nodes);
+			
 		}
 
+		[Test]
+		public void Nodes_ProducesEmptySequenceWhenPathIsEmpty()
+		{
+			var path = Create();
 
+			CollectionAssert.IsEmpty(path.Nodes);
+		}
+
+		[Test]
+		public void IsEmpty_TrueWhenEmpty()
+		{
+			var path = Create();
+
+			Assert.True(path.IsEmpty);
+		}
+
+		[Test]
+		public void IsEmpty_FalseWhenNotEmpty()
+		{
+			var path = Create(1);
+
+			Assert.False(path.IsEmpty);
+		}
+
+		[Test]
+		public void Clear_ProducesEmptyPath()
+		{
+			var notEmpty = Create(5, 3, 7);
+			var empty = notEmpty.Clear();
+
+			CollectionAssert.IsEmpty(empty);
+		}
+
+		[Test]
+		public void Clear_DoesNotModifyOriginal()
+		{
+			Node first, second, third;
+			first = new Node(7);
+			second = new Node(-3);
+			third = new Node(1);
+			var original = Create().Push(first).Push(second).Push(third);
+			int originalCost = original.Cost;
+
+			var expected = Iterate(third, second, first);
+			Assume.That(original.SequenceEqual(expected));
+			var cleared = original.Clear();
+			Assume.That(!cleared.Any());
+
+			CollectionAssert.AreEqual(expected, original);
+			Assert.AreEqual(originalCost, original.Cost);
+		}
+
+		[Test]
+		public void Enumerator_EnumeratesHeadToTail()
+		{
+			var nodes = Iterate(15, 1, -4, 6).Select(i => new Node(i)).ToArray();
+			var path = PushAll(Create(), nodes);
+
+			var expected = nodes.Reverse();
+
+			CollectionAssert.AreEqual(expected, path);
+		}
+
+		[Test]
+		public void Enumerator_YieldsNothingWhenPathIsEmpty()
+		{
+			var empty = Create();
+
+			CollectionAssert.IsEmpty(empty);
+		}
 	}
 }
