@@ -8,216 +8,212 @@ using NUnit.Framework;
 namespace NewellClark.DataStructures.Graphs
 {
 	[TestFixture]
-	partial class GraphNodeTests
+	partial class MutableNodeTests<TNode>
 	{
-		[TestFixture]
-		public class NeighborCollectionTests
+		[Test]
+		public void Add_AddsNode_WhenNotPresent()
 		{
-			[Test]
-			public void Add_AddsNode_WhenNotPresent()
-			{
-				var primary = new GraphNode<string>(text1);
-				var neighbor = new GraphNode<string>(text2);
+			var primary = GetNode(text1);
+			var neighbor = GetNode(text2);
 
-				primary.Neighbors.Add(neighbor);
+			primary.Neighbors.Add(neighbor);
 
-				CollectionAssert.Contains(primary.Neighbors, neighbor);
-			}
+			CollectionAssert.Contains(primary.Neighbors, neighbor);
+		}
 
-			[Test]
-			public void Add_AddsSelfToNeighbor_WhenNotPresent()
-			{
-				var primary = new GraphNode<string>(text1);
-				var neighbor = new GraphNode<string>(text2);
+		[Test]
+		public void Add_AddsSelfToNeighbor_WhenNotPresent()
+		{
+			var primary = new GraphNode<string>(text1);
+			var neighbor = new GraphNode<string>(text2);
 
-				primary.Neighbors.Add(neighbor);
+			primary.Neighbors.Add(neighbor);
 				
-				CollectionAssert.Contains(neighbor.Neighbors, primary);
-			}
+			CollectionAssert.Contains(neighbor.Neighbors, primary);
+		}
 
-			[Test]
-			public void Add_ReturnsTrue_WhenNodeAdded()
-			{
-				var primary = GetNode();
-				var neighbor = GetNode();
+		[Test]
+		public void Add_ReturnsTrue_WhenNodeAdded()
+		{
+			var primary = GetNode();
+			var neighbor = GetNode();
 
-				bool result = primary.Neighbors.Add(neighbor);
+			bool result = primary.Neighbors.Add(neighbor);
 
-				Assume.That(primary.Neighbors.Contains(neighbor));
+			Assume.That(primary.Neighbors.Contains(neighbor));
 
-				Assert.True(result);
-			}
+			Assert.True(result);
+		}
 
-			[Test]
-			public void Add_ReturnsFalse_WhenNotAdded()
-			{
-				var primary = GetNode();
-				var neighbor = GetNode();
-				primary.Neighbors.Add(neighbor);
+		[Test]
+		public void Add_ReturnsFalse_WhenNotAdded()
+		{
+			var primary = GetNode();
+			var neighbor = GetNode();
+			primary.Neighbors.Add(neighbor);
 
-				Assume.That(primary.Neighbors.Contains(neighbor));
+			Assume.That(primary.Neighbors.Contains(neighbor));
 
-				bool result = primary.Neighbors.Add(neighbor);
+			bool result = primary.Neighbors.Add(neighbor);
 
-				Assert.False(result);
-			}
+			Assert.False(result);
+		}
 
-			[Test]
-			public void Add_WillNotAddSelf()
-			{
-				var node = GetNode();
+		[Test]
+		public void Add_WillNotAddSelf()
+		{
+			var node = GetNode();
 
-				node.Neighbors.Add(node);
+			node.Neighbors.Add(node);
 
-				CollectionAssert.DoesNotContain(node.Neighbors, node);
-			}
+			CollectionAssert.DoesNotContain(node.Neighbors, node);
+		}
 
-			[Test]
-			public void Add_ReturnsFalse_WhenAttemptingToAddSelf()
-			{
-				var node = GetNode();
+		[Test]
+		public void Add_ReturnsFalse_WhenAttemptingToAddSelf()
+		{
+			var node = GetNode();
 
-				bool result = node.Neighbors.Add(node);
+			bool result = node.Neighbors.Add(node);
 
-				Assume.That(!node.Neighbors.Contains(node));
+			Assume.That(!node.Neighbors.Contains(node));
 
-				Assert.False(result);
-			}
+			Assert.False(result);
+		}
 
-			[Test]
-			public void Add_Throws_WhenArgumentNull()
-			{
-				var node = GetNode();
+		[Test]
+		public void Add_Throws_WhenArgumentNull()
+		{
+			var node = GetNode();
 
-				Assert.Throws<ArgumentNullException>(() => node.Neighbors.Add(null));
-			}
+			Assert.Throws<ArgumentNullException>(() => node.Neighbors.Add((TNode)null));
+		}
 
-			[Test]
-			public void Remove_RemovesContainedNeighbor()
-			{
-				var primary = GetNode();
-				var neighbor = GetNode();
-				primary.Neighbors.Add(neighbor);
+		[Test]
+		public void Remove_RemovesContainedNeighbor()
+		{
+			var primary = GetNode();
+			var neighbor = GetNode();
+			primary.Neighbors.Add(neighbor);
 
-				Assume.That(primary.Neighbors.Contains(neighbor));
+			Assume.That(primary.Neighbors.Contains(neighbor));
 
-				primary.Neighbors.Remove(neighbor);
+			primary.Neighbors.Remove(neighbor);
 
-				CollectionAssert.DoesNotContain(primary.Neighbors, neighbor);
-			}
+			CollectionAssert.DoesNotContain(primary.Neighbors, neighbor);
+		}
 
-			[Test]
-			public void Remove_RemovesSelfFromNeighbor_WhenPresent()
-			{
-				var primary = GetNode();
-				var neighbor = GetNode();
-				primary.Neighbors.Add(neighbor);
+		[Test]
+		public void Remove_RemovesSelfFromNeighbor_WhenPresent()
+		{
+			var primary = GetNode();
+			var neighbor = GetNode();
+			primary.Neighbors.Add(neighbor);
 
-				Assume.That(neighbor.Neighbors.Contains(primary));
+			Assume.That(neighbor.Neighbors.Contains(primary));
 
-				primary.Neighbors.Remove(neighbor);
+			primary.Neighbors.Remove(neighbor);
 
-				CollectionAssert.DoesNotContain(neighbor.Neighbors, primary);
-			}
+			CollectionAssert.DoesNotContain(neighbor.Neighbors, primary);
+		}
 
-			[Test]
-			public void Remove_ReturnsTrue_WhenNodeWasPresent()
-			{
-				var primary = GetNode();
-				var neighbor = GetNode();
-				primary.Neighbors.Add(neighbor);
+		[Test]
+		public void Remove_ReturnsTrue_WhenNodeWasPresent()
+		{
+			var primary = GetNode();
+			var neighbor = GetNode();
+			primary.Neighbors.Add(neighbor);
 
-				Assume.That(primary.Neighbors.Contains(neighbor));
+			Assume.That(primary.Neighbors.Contains(neighbor));
 
-				bool result = primary.Neighbors.Remove(neighbor);
+			bool result = primary.Neighbors.Remove(neighbor);
 
-				Assert.True(result);
-			}
+			Assert.True(result);
+		}
 
-			[Test]
-			public void Remove_ReturnsFalse_WhenNodeWasNotPresent()
-			{
-				var primary = GetNode();
-				var neighbor = GetNode();
+		[Test]
+		public void Remove_ReturnsFalse_WhenNodeWasNotPresent()
+		{
+			var primary = GetNode();
+			var neighbor = GetNode();
 
-				Assume.That(!primary.Neighbors.Contains(neighbor));
+			Assume.That(!primary.Neighbors.Contains(neighbor));
 
-				bool result = primary.Neighbors.Remove(neighbor);
+			bool result = primary.Neighbors.Remove(neighbor);
 
-				Assert.False(result);
-			}
+			Assert.False(result);
+		}
 
-			[Test]
-			public void Remove_Throws_WhenArgumentNull()
-			{
-				var node = GetNode();
+		[Test]
+		public void Remove_Throws_WhenArgumentNull()
+		{
+			var node = GetNode();
 
-				Assert.Throws<ArgumentNullException>(() => node.Neighbors.Remove(null));
-			}
+			Assert.Throws<ArgumentNullException>(() => node.Neighbors.Remove(null));
+		}
 
-			[Test]
-			public void Clear_RemovesAllNeighbors()
-			{
-				var node = GetNode();
-				const int count = 4;
-				for (int i = 0; i < count; ++i)
-					node.Neighbors.Add(GetNode());
+		[Test]
+		public void Clear_RemovesAllNeighbors()
+		{
+			var node = GetNode();
+			const int count = 4;
+			for (int i = 0; i < count; ++i)
+				node.Neighbors.Add(GetNode());
 
-				Assume.That(node.Neighbors.Count == count);
+			Assume.That(node.Neighbors.Count == count);
 
-				node.Neighbors.Clear();
+			node.Neighbors.Clear();
 
-				CollectionAssert.IsEmpty(node.Neighbors);
-			}
+			CollectionAssert.IsEmpty(node.Neighbors);
+		}
 
-			[Test]
-			public void Clear_RemovesSelfFromRemovedNeighbors()
-			{
-				var primary = GetNode();
-				var neighbor = GetNode();
-				primary.Neighbors.Add(neighbor);
-				neighbor.Neighbors.Add(GetNode());
-				neighbor.Neighbors.Add(GetNode());
+		[Test]
+		public void Clear_RemovesSelfFromRemovedNeighbors()
+		{
+			var primary = GetNode();
+			var neighbor = GetNode();
+			primary.Neighbors.Add(neighbor);
+			neighbor.Neighbors.Add(GetNode());
+			neighbor.Neighbors.Add(GetNode());
 
-				bool assumption = primary.Neighbors.Contains(neighbor) && neighbor.Neighbors.Contains(primary);
-				Assume.That(assumption);
+			bool assumption = primary.Neighbors.Contains(neighbor) && neighbor.Neighbors.Contains(primary);
+			Assume.That(assumption);
 
-				primary.Neighbors.Clear();
+			primary.Neighbors.Clear();
 
-				CollectionAssert.DoesNotContain(neighbor.Neighbors, primary);
-			}
+			CollectionAssert.DoesNotContain(neighbor.Neighbors, primary);
+		}
 
-			[Test]
-			public void Contains_ReturnsTrue_WhenNodePresent()
-			{
-				var primary = GetNode();
-				var neighbor = GetNode();
-				primary.Neighbors.Add(neighbor);
+		[Test]
+		public void Contains_ReturnsTrue_WhenNodePresent()
+		{
+			var primary = GetNode();
+			var neighbor = GetNode();
+			primary.Neighbors.Add(neighbor);
 
-				bool result = primary.Neighbors.Contains(neighbor);
+			bool result = primary.Neighbors.Contains(neighbor);
 
-				Assert.True(result);
-			}
+			Assert.True(result);
+		}
 
-			[Test]
-			public void Contains_ReturnsFalse_WhenNodeNotPresent()
-			{
-				var primary = GetNode();
-				var neighbor = GetNode();
+		[Test]
+		public void Contains_ReturnsFalse_WhenNodeNotPresent()
+		{
+			var primary = GetNode();
+			var neighbor = GetNode();
 
-				bool result = primary.Neighbors.Contains(neighbor);
+			bool result = primary.Neighbors.Contains(neighbor);
 
-				Assert.False(result);
-			}
+			Assert.False(result);
+		}
 
-			[Test]
-			public void Contains_Throws_WhenArgumentNull()
-			{
-				var primary = GetNode();
+		[Test]
+		public void Contains_Throws_WhenArgumentNull()
+		{
+			var primary = GetNode();
 
-				Assert.Throws<ArgumentNullException>(
-					() => primary.Neighbors.Contains(null));
-			}
+			Assert.Throws<ArgumentNullException>(
+				() => primary.Neighbors.Contains(null));
 		}
 	}
 }

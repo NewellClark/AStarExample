@@ -49,7 +49,7 @@
     <Compile Include="GraphNode.NeighborCollection.cs">
       <DependentUpon>GraphNode.cs</DependentUpon>
     </Compile>
-    <Compile Include="IHasNeighbors.cs" />
+    <Compile Include="Interfaces.cs" />
     <Compile Include="Path.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -53,7 +53,10 @@
     <Compile Include="AStarTests.cs" />
     <Compile Include="GraphNodeExtensions.cs" />
     <Compile Include="GraphNodeTests.cs" />
-    <Compile Include="GraphNodeTests.NeighborCollectionTests.cs" />
+    <Compile Include="GraphNodeTests.NeighborCollectionTests.cs">
+      <DependentUpon>GraphNodeTests.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GraphTraversalTests.cs" />
     <Compile Include="PathTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

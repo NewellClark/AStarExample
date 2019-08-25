@@ -10,7 +10,7 @@ namespace NewellClark.DataStructures.Graphs
 	/// A simple graph node that can connect to other nodes.
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
-	public partial class GraphNode<T> : IMutableNode<GraphNode<T>>
+	public partial class GraphNode<T> : IMutableNode<GraphNode<T>, T>
 	{
 		public GraphNode(T value)
 		{
