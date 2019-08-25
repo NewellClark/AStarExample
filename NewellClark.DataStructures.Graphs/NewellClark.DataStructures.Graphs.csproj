@@ -50,6 +50,10 @@
       <DependentUpon>GraphNode.cs</DependentUpon>
     </Compile>
     <Compile Include="Interfaces.cs" />
+    <Compile Include="ObservableNode.cs" />
+    <Compile Include="ObservableNode.NeighborCollection.cs">
+      <DependentUpon>ObservableNode.cs</DependentUpon>
+    </Compile>
     <Compile Include="Path.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

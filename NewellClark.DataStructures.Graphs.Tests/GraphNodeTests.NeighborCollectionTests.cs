@@ -24,8 +24,8 @@ namespace NewellClark.DataStructures.Graphs
 		[Test]
 		public void Add_AddsSelfToNeighbor_WhenNotPresent()
 		{
-			var primary = new GraphNode<string>(text1);
-			var neighbor = new GraphNode<string>(text2);
+			var primary = GetNode(text1);
+			var neighbor = GetNode(text2);
 
 			primary.Neighbors.Add(neighbor);
 				
@@ -86,7 +86,7 @@ namespace NewellClark.DataStructures.Graphs
 		{
 			var node = GetNode();
 
-			Assert.Throws<ArgumentNullException>(() => node.Neighbors.Add((TNode)null));
+			Assert.Throws<ArgumentNullException>(() => node.Neighbors.Add(null));
 		}
 
 		[Test]

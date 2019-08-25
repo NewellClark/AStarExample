@@ -138,7 +138,6 @@ namespace NewellClark.DataStructures.Collections
 			return remove.Length;
 		}
 
-
 		public virtual void ExceptWith(IEnumerable<T> other)
 		{
 			if (other is null) throw new ArgumentNullException(nameof(other));

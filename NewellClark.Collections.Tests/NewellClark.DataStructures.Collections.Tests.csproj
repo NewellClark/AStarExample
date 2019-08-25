@@ -55,13 +55,13 @@
     <Compile Include="SetBaseTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\NewellClark.Collections\NewellClark.DataStructures.Collections.csproj">
       <Project>{a28d7b4e-514b-4936-b34e-e88693eaa7b7}</Project>
       <Name>NewellClark.DataStructures.Collections</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

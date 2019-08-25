@@ -50,6 +50,22 @@ namespace NewellClark.DataStructures.Collections
 			return new ReadOnlyCollectionWrapper<T>(@this);
 		}
 
+		public static int AddRange<T>(this ISet<T> @this, IEnumerable<T> items)
+		{
+			if (@this is null) throw new ArgumentNullException(nameof(@this));
+			if (items is null) throw new ArgumentNullException(nameof(items));
+
+			int added = 0;
+
+			foreach (var item in items)
+				if (@this.Add(item))
+					++added;
+
+			return added;
+		}
+
+		public static int AddRange<T>(this ISet<T> @this, params T[] items) => AddRange(@this, items.AsEnumerable());
+
 		private class ReadOnlyCollectionWrapper<T> : IReadOnlyCollection<T>
 		{
 			private readonly ICollection<T> _inner;
