@@ -14,6 +14,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewellClark.DataStructures.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewellClark.DataStructures.Graphs.Tests", "NewellClark.DataStructures.Graphs.Tests\NewellClark.DataStructures.Graphs.Tests.csproj", "{74AA3D92-DFF3-484F-A861-8C4C6AED2DFA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewellClark.PathViewer", "NewellClark.PathViewer\NewellClark.PathViewer.csproj", "{DE6CC4FE-81B8-497F-9964-3C6C3E614579}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewellClark.PathViewer.Tests", "NewellClark.PathViewer.Tests\NewellClark.PathViewer.Tests.csproj", "{D8D6EE1B-190E-40A8-A96D-682BDCA8316F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +40,14 @@ Global
 		{74AA3D92-DFF3-484F-A861-8C4C6AED2DFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{74AA3D92-DFF3-484F-A861-8C4C6AED2DFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{74AA3D92-DFF3-484F-A861-8C4C6AED2DFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE6CC4FE-81B8-497F-9964-3C6C3E614579}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE6CC4FE-81B8-497F-9964-3C6C3E614579}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE6CC4FE-81B8-497F-9964-3C6C3E614579}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE6CC4FE-81B8-497F-9964-3C6C3E614579}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8D6EE1B-190E-40A8-A96D-682BDCA8316F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8D6EE1B-190E-40A8-A96D-682BDCA8316F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8D6EE1B-190E-40A8-A96D-682BDCA8316F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8D6EE1B-190E-40A8-A96D-682BDCA8316F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
