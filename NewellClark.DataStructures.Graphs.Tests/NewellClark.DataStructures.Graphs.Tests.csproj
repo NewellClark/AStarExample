@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AStarTests.cs" />
     <Compile Include="GraphNodeExtensions.cs" />
     <Compile Include="GraphNodeTests.cs" />
     <Compile Include="GraphNodeTests.NeighborCollectionTests.cs" />

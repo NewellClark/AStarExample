@@ -32,6 +32,27 @@ namespace NewellClark.DataStructures.Graphs
 
 			return new Path<TNode, TCost>(costFunction, costAdder, initial);
 		}
+
+		/// <summary>
+		/// Creates a new path with the specified start node and the specified cost functions.
+		/// </summary>
+		/// <typeparam name="TNode">The type of node in the path.</typeparam>
+		/// <typeparam name="TCost">The type used to compute the cost of the path.</typeparam>
+		/// <param name="start">The first node in the path.</param>
+		/// <param name="costFunction">A function to compute the cost of moving between two nodes.</param>
+		/// <param name="costAdder">A function to add two costs together.</param>
+		/// <param name="initial">The initial cost of the path.</param>
+		/// <returns>A <see cref="Path{TNode, TCost}"/> with a single node; the specified starting node.</returns>
+		public static Path<TNode, TCost> Create<TNode, TCost>(
+			TNode start, 
+			CostFunction<TNode, TCost> costFunction,
+			CostAdder<TCost> costAdder,
+			TCost initial)
+		{
+			var empty = Create(costFunction, costAdder, initial);
+
+			return empty.Push(start);
+		}
 	}
 
 	/// <summary>
