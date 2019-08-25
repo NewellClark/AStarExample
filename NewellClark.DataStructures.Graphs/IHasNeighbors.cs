@@ -15,6 +15,17 @@ namespace NewellClark.DataStructures.Graphs
 		IEnumerable<TNode> Neighbors { get; }
 	}
 
+	public interface IMutableNode<TNode> : IHasNeighbors<TNode>
+		where TNode : IMutableNode<TNode>
+	{
+		new INeighborCollection<TNode> Neighbors { get; }
+	}
+
+	public interface INeighborCollection<TNode> : ICollection<TNode>, IReadOnlyCollection<TNode>
+	{
+		new bool Add(TNode neighbor);
+	}
+
 	public static class HasNeighborsExtensions
 	{
 		public static IEnumerable<TNode> TraverseDepthFirst<TNode>(this TNode @this)

@@ -66,6 +66,7 @@
   <ItemGroup>
     <Compile Include="ControlExtensions.cs" />
     <Compile Include="GeometryExtensions.cs" />
+    <Compile Include="GraphModel.cs" />
     <Compile Include="IntVector2.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

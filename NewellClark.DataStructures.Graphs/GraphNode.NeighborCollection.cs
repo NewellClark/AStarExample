@@ -9,7 +9,7 @@ namespace NewellClark.DataStructures.Graphs
 {
 	partial class GraphNode<T>
 	{
-		public class NeighborCollection : ICollection<GraphNode<T>>, IReadOnlyCollection<GraphNode<T>>
+		public class NeighborCollection : INeighborCollection<GraphNode<T>>
 		{
 			/// <summary>
 			/// The <see cref="GraphNode{T}"/> that owns the current <see cref="NeighborCollection"/>.

@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace NewellClark.DataStructures.Graphs
 {
-	public partial class GraphNode<T> : IHasNeighbors<GraphNode<T>>
+	/// <summary>
+	/// A simple graph node that can connect to other nodes.
+	/// </summary>
+	/// <typeparam name="T"></typeparam>
+	public partial class GraphNode<T> : IMutableNode<GraphNode<T>>
 	{
 		public GraphNode(T value)
 		{
@@ -23,9 +27,18 @@ namespace NewellClark.DataStructures.Graphs
 			this.Neighbors = new NeighborCollection(this, neighbors);
 		}
 
+		/// <summary>
+		/// Gets the value of the current <see cref="GraphNode{T}"/>.
+		/// </summary>
 		public T Value { get; }
 
+		/// <summary>
+		/// Gets a collection of all the nodes that are directly connected to the current 
+		/// <see cref="GraphNode{T}"/>.
+		/// </summary>
 		public NeighborCollection Neighbors { get; }
+
+		INeighborCollection<GraphNode<T>> IMutableNode<GraphNode<T>>.Neighbors => this.Neighbors;
 
 		IEnumerable<GraphNode<T>> IHasNeighbors<GraphNode<T>>.Neighbors => this.Neighbors;
 
