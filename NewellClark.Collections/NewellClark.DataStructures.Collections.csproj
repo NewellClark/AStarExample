@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CollectionExtensions.cs" />
+    <Compile Include="FlyweightCollection.cs" />
     <Compile Include="ObservableSet.cs" />
     <Compile Include="PriorityQueue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

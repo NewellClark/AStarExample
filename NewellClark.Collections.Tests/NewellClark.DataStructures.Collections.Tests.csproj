@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FlyweightCollectionTests.cs" />
     <Compile Include="ObservableSetTests.cs" />
     <Compile Include="PriorityQueueTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
