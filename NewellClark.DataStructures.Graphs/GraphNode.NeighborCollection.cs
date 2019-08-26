@@ -4,18 +4,18 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NewellClark.DataStructures.Collections;
 
 namespace NewellClark.DataStructures.Graphs
 {
 	partial class GraphNode<T>
 	{
-		public class NeighborCollection : INeighborCollection<GraphNode<T>>
+		public class NeighborCollection : Set<GraphNode<T>>
 		{
 			/// <summary>
 			/// The <see cref="GraphNode{T}"/> that owns the current <see cref="NeighborCollection"/>.
 			/// </summary>
 			private readonly GraphNode<T> _owner;
-			private readonly HashSet<GraphNode<T>> _nodes;
 
 			internal NeighborCollection(GraphNode<T> owner, IEnumerable<GraphNode<T>> neighbors)
 			{
@@ -25,7 +25,6 @@ namespace NewellClark.DataStructures.Graphs
 					$"{nameof(neighbors)} should never contain {nameof(owner)}.");
 
 				_owner = owner;
-				_nodes = new HashSet<GraphNode<T>>(neighbors);
 			}
 
 			internal NeighborCollection(GraphNode<T> owner)
@@ -33,7 +32,6 @@ namespace NewellClark.DataStructures.Graphs
 				Debug.Assert(owner != null, $"{nameof(owner)} was null.");
 
 				_owner = owner;
-				_nodes = new HashSet<GraphNode<T>>();
 			}
 			
 
@@ -44,7 +42,7 @@ namespace NewellClark.DataStructures.Graphs
 			/// <returns>True if added, false otherwise.</returns>
 			/// <exception cref="ArgumentNullException">
 			/// <paramref name="node"/> was null.</exception>
-			public bool Add(GraphNode<T> node)
+			protected override bool AddItem(GraphNode<T> node)
 			{
 				if (node == null)
 					throw new ArgumentNullException(nameof(node));
@@ -52,8 +50,8 @@ namespace NewellClark.DataStructures.Graphs
 				if (node == _owner)
 					return false;
 
-				bool neighborAdded = _nodes.Add(node);
-				bool ownerAdded = node.Neighbors._nodes.Add(_owner);
+				bool neighborAdded = Items.Add(node);
+				bool ownerAdded = node.Neighbors.Items.Add(_owner);
 
 				Debug.Assert(neighborAdded == ownerAdded);
 
@@ -67,13 +65,13 @@ namespace NewellClark.DataStructures.Graphs
 			/// <returns>True if removed, false if not.</returns>
 			/// <exception cref="ArgumentNullException">
 			/// <paramref name="node"/> was null.</exception>
-			public bool Remove(GraphNode<T> node)
+			protected override bool RemoveItem(GraphNode<T> node)
 			{
 				if (node == null)
 					throw new ArgumentNullException(nameof(node));
 
-				bool neighborRemoved = _nodes.Remove(node);
-				bool ownerRemoved = node.Neighbors._nodes.Remove(_owner);
+				bool neighborRemoved = Items.Remove(node);
+				bool ownerRemoved = node.Neighbors.Items.Remove(_owner);
 
 				Debug.Assert(neighborRemoved == ownerRemoved);
 
@@ -83,49 +81,31 @@ namespace NewellClark.DataStructures.Graphs
 			/// <summary>
 			/// Removes all <see cref="GraphNode{T}"/>s from the collection.
 			/// </summary>
-			public void Clear()
+			protected override void ClearItems()
 			{
-				var neighbors = new GraphNode<T>[Count];
-				CopyTo(neighbors, 0);
-				_nodes.Clear();
+				var removed = Items.ToArray();
+				Items.Clear();
 
-				foreach (var node in neighbors)
+				foreach (var node in removed)
 				{
-					bool removed = node.Neighbors._nodes.Remove(_owner);
+					bool wasRemoved = node.Neighbors.Items.Remove(_owner);
 
-					Debug.Assert(removed);
+					Debug.Assert(wasRemoved);
 				}
 			}
-
-			/// <summary>
-			/// Gets the number of nodes in the <see cref="NeighborCollection"/>.
-			/// </summary>
-			public int Count => _nodes.Count;
 
 			/// <summary>
 			/// Returns a value indicating whether <paramref name="node"/> is in the collection.
 			/// </summary>
 			/// <param name="node">The node to look for.</param>
 			/// <returns>True if <paramref name="node"/> is in the collection. False otherwise.</returns>
-			public bool Contains(GraphNode<T> node)
+			protected override bool ContainsItem(GraphNode<T> node)
 			{
 				if (node == null)
 					throw new ArgumentNullException(nameof(node));
 
-				return _nodes.Contains(node);
+				return base.ContainsItem(node);
 			}
-
-			public void CopyTo(GraphNode<T>[] array, int arrayIndex) => _nodes.CopyTo(array, arrayIndex);
-
-			public IEnumerator<GraphNode<T>> GetEnumerator() => _nodes.GetEnumerator();
-
-			#region Explicit interface implimentations
-			System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => this.GetEnumerator();
-
-			void ICollection<GraphNode<T>>.Add(GraphNode<T> item) => Add(item);
-
-			bool ICollection<GraphNode<T>>.IsReadOnly => false;
-			#endregion
 		}
 	}
 }

@@ -7,8 +7,16 @@ using System.Diagnostics;
 
 namespace NewellClark.DataStructures.Graphs
 {
+	/// <summary>
+	/// A graph node that raises events when neighbors are added or removed.
+	/// </summary>
+	/// <typeparam name="T"></typeparam>
 	public partial class ObservableNode<T> : IMutableNode<ObservableNode<T>, T> 
 	{
+		/// <summary>
+		/// Creates a new <see cref="ObservableNode{T}"/> with the specified value.
+		/// </summary>
+		/// <param name="value">The value of the node.</param>
 		public ObservableNode(T value)
 		{
 			this.Value = value;
@@ -51,7 +59,7 @@ namespace NewellClark.DataStructures.Graphs
 			NodesRemoved?.Invoke(this, e);
 		}
 
-		INeighborCollection<ObservableNode<T>> IMutableNode<ObservableNode<T>>.Neighbors => Neighbors;
+		ISet<ObservableNode<T>> IMutableNode<ObservableNode<T>>.Neighbors => Neighbors;
 
 		IEnumerable<ObservableNode<T>> IHasNeighbors<ObservableNode<T>>.Neighbors => Neighbors;
 	}

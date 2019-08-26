@@ -38,7 +38,7 @@ namespace NewellClark.DataStructures.Graphs
 		/// </summary>
 		public NeighborCollection Neighbors { get; }
 
-		INeighborCollection<GraphNode<T>> IMutableNode<GraphNode<T>>.Neighbors => this.Neighbors;
+		ISet<GraphNode<T>> IMutableNode<GraphNode<T>>.Neighbors => Neighbors;
 
 		IEnumerable<GraphNode<T>> IHasNeighbors<GraphNode<T>>.Neighbors => this.Neighbors;
 

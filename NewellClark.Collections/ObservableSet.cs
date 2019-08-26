@@ -9,7 +9,7 @@ namespace NewellClark.DataStructures.Collections
 	/// <summary>
 	/// A set that raises an event whenever items are added or removed. 
 	/// </summary>
-	/// <typeparam name="T"></typeparam>
+	/// <typeparam name="T">Type of element in the set.</typeparam>
 	public class ObservableSet<T> : Set<T>
 	{
 		/// <summary>
@@ -46,6 +46,11 @@ namespace NewellClark.DataStructures.Collections
 			SetChanged?.Invoke(this, e);
 		}
 
+		/// <summary>
+		/// Adds the specified item to the set and raises the <see cref="SetChanged"/> event if the item was added.
+		/// </summary>
+		/// <param name="item">The item to add.</param>
+		/// <returns>True if the item was added.</returns>
 		protected override bool AddItem(T item)
 		{
 			bool added = base.AddItem(item);
@@ -59,6 +64,12 @@ namespace NewellClark.DataStructures.Collections
 			return added;
 		}
 
+		/// <summary>
+		/// Removes the specified item from the set and raises the <see cref="SetChanged"/> event if the item
+		/// was removed.
+		/// </summary>
+		/// <param name="item">The item to remove.</param>
+		/// <returns>True if the item was removed.</returns>
 		protected override bool RemoveItem(T item)
 		{
 			bool removed = base.RemoveItem(item);
@@ -72,6 +83,9 @@ namespace NewellClark.DataStructures.Collections
 			return removed;
 		}
 
+		/// <summary>
+		/// Removes all items from the set and raises the <see cref="SetChanged"/> event if any items were removed.
+		/// </summary>
 		protected override void ClearItems()
 		{
 			if (Count == 0)

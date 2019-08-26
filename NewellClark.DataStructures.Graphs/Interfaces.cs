@@ -25,38 +25,40 @@ namespace NewellClark.DataStructures.Graphs
 	public interface IMutableNode<TNode> : IHasNeighbors<TNode>
 		where TNode : IMutableNode<TNode>
 	{
-		new INeighborCollection<TNode> Neighbors { get; }
+		/// <summary>
+		/// Gets a set containing all neighbor nodes of the current <see cref="IMutableNode{TNode}"/>.
+		/// </summary>
+		new ISet<TNode> Neighbors { get; }
 	}
 
 	/// <summary>
 	/// A node with a collection of neighbor nodes that supports adding and removing neighbors. Each node 
 	/// carries a value.
 	/// </summary>
-	/// <typeparam name="TNode"></typeparam>
-	/// <typeparam name="TValue"></typeparam>
+	/// <typeparam name="TNode">The type of node.</typeparam>
+	/// <typeparam name="TValue">The type of value that each node carries.</typeparam>
 	public interface IMutableNode<TNode, TValue> : IMutableNode<TNode>
 		where TNode: IMutableNode<TNode, TValue>
 	{
+		/// <summary>
+		/// Gets the value stored in the current <see cref="IMutableNode{TNode, TValue}"/>.
+		/// </summary>
 		TValue Value { get; }
 	}
 
-	/// <summary>
-	/// A collection of neighbor nodes.
-	/// </summary>
-	/// <typeparam name="TNode"></typeparam>
-	public interface INeighborCollection<TNode> : ICollection<TNode>
+	public static class NodeExtensions
 	{
 		/// <summary>
-		/// Attempts to add the specified node to the collection. Returns a value indicating whether 
-		/// the neighbor node was added.
+		/// Performs a depth-first traversal of the specified node.
 		/// </summary>
-		/// <param name="neighbor">The node to add.</param>
-		/// <returns>True if the specified node was added, false otherwise.</returns>
-		new bool Add(TNode neighbor);
-	}
-
-	public static class HasNeighborsExtensions
-	{
+		/// <typeparam name="TNode">Type of node.</typeparam>
+		/// <param name="this">The root node.</param>
+		/// <returns>
+		/// A lazily-evaluated sequence of all nodes found in the search.
+		/// </returns>
+		/// <remarks>
+		/// The sequence is lazily evaluated on demand.
+		/// </remarks>
 		public static IEnumerable<TNode> TraverseDepthFirst<TNode>(this TNode @this)
 			where TNode: IHasNeighbors<TNode>
 		{
@@ -88,6 +90,15 @@ namespace NewellClark.DataStructures.Graphs
 			return iterator();
 		}
 
+		/// <summary>
+		/// Performs a breadth-first traversal of the specified node.
+		/// </summary>
+		/// <typeparam name="TNode">Type of node.</typeparam>
+		/// <param name="this">The root node to start the search at.</param>
+		/// <returns>A lazily-evaluated sequence representing the search.</returns>
+		/// <remarks>
+		/// The sequence is lazily-evaluated on demand.
+		/// </remarks>
 		public static IEnumerable<TNode> TraverseBreadthFirst<TNode>(this TNode @this)
 			where TNode: IHasNeighbors<TNode>
 		{

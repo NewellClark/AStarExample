@@ -12,6 +12,11 @@ namespace NewellClark.DataStructures.Collections
 	/// <typeparam name="T"></typeparam>
 	public class SetChangedEventArgs<T> : EventArgs
 	{
+		/// <summary>
+		/// Creates a new instance of <see cref="SetChangedEventArgs{T}"/>.
+		/// </summary>
+		/// <param name="added">The items that were added.</param>
+		/// <param name="removed">The items that were removed.</param>
 		public SetChangedEventArgs(IReadOnlyCollection<T> added, IReadOnlyCollection<T> removed)
 		{
 			if (added is null) throw new ArgumentNullException(nameof(added));

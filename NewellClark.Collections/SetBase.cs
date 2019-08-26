@@ -10,7 +10,7 @@ namespace NewellClark.DataStructures.Collections
 	/// Base class for implementing the <see cref="ISet{T}"/> interface. Provides default implementations
 	/// of all the set operations, which can optionally be overridden. 
 	/// </summary>
-	/// <typeparam name="T"></typeparam>
+	/// <typeparam name="T">The type of element in the set.</typeparam>
 	public abstract class SetBase<T> : ISet<T>, IReadOnlyCollection<T>
 	{
 		protected SetBase() { }
@@ -138,6 +138,10 @@ namespace NewellClark.DataStructures.Collections
 			return remove.Length;
 		}
 
+		/// <summary>
+		/// Modifies the current set so it doesn't contain any elements in <paramref name="other"/>.
+		/// </summary>
+		/// <param name="other"></param>
 		public virtual void ExceptWith(IEnumerable<T> other)
 		{
 			if (other is null) throw new ArgumentNullException(nameof(other));
@@ -152,6 +156,11 @@ namespace NewellClark.DataStructures.Collections
 				Remove(item);
 		}
 
+		/// <summary>
+		/// Modifies the current set so it contains all elements that are either in the current set, or
+		/// in <paramref name="other"/>, but not both.
+		/// </summary>
+		/// <param name="other">The other collection.</param>
 		public virtual void SymmetricExceptWith(IEnumerable<T> other)
 		{
 			if (other is null) throw new ArgumentNullException(nameof(other));
@@ -169,6 +178,11 @@ namespace NewellClark.DataStructures.Collections
 			}
 		}
 
+		/// <summary>
+		/// Modifies the current set so it only contains elements that are both in the current set, 
+		/// and in <paramref name="other"/>
+		/// </summary>
+		/// <param name="other">The other collection.</param>
 		public virtual void IntersectWith(IEnumerable<T> other)
 		{
 			if (other is null) throw new ArgumentNullException(nameof(other));
@@ -181,6 +195,11 @@ namespace NewellClark.DataStructures.Collections
 			RemoveWhere(i => !theirs.Contains(i));
 		}
 
+		/// <summary>
+		/// Modifies the current set so it contains all elements that are in the current set, or 
+		/// in <paramref name="other"/>, or in both.
+		/// </summary>
+		/// <param name="other">The other collection.</param>
 		public virtual void UnionWith(IEnumerable<T> other)
 		{
 			if (other is null) throw new ArgumentNullException(nameof(other));
@@ -192,6 +211,11 @@ namespace NewellClark.DataStructures.Collections
 				Add(item);
 		}
 
+		/// <summary>
+		/// Determines if the current set and <paramref name="other"/> contain the same elements.
+		/// </summary>
+		/// <param name="other">The other collection.</param>
+		/// <returns>True if the current set contains all the same elements as <paramref name="other"/>.</returns>
 		public virtual bool SetEquals(IEnumerable<T> other)
 		{
 			if (other is null) throw new ArgumentNullException(nameof(other));
@@ -203,6 +227,11 @@ namespace NewellClark.DataStructures.Collections
 			return true;
 		}
 
+		/// <summary>
+		/// Determines whether the current set has at least one element in common with <paramref name="other"/>.
+		/// </summary>
+		/// <param name="other">The other collection.</param>
+		/// <returns>True if the current set has at least one element in common with <paramref name="other"/>.</returns>
 		public virtual bool Overlaps(IEnumerable<T> other)
 		{
 			if (other is null) throw new ArgumentNullException(nameof(other));
@@ -214,6 +243,11 @@ namespace NewellClark.DataStructures.Collections
 			return false;
 		}
 
+		/// <summary>
+		/// Determines whether <paramref name="other"/> contains every element that the current set contains.
+		/// </summary>
+		/// <param name="other">The other collection.</param>
+		/// <returns>True if the current set is a subset of <paramref name="other"/>.</returns>
 		public virtual bool IsSubsetOf(IEnumerable<T> other)
 		{
 			if (other is null) throw new ArgumentNullException(nameof(other));
@@ -230,6 +264,12 @@ namespace NewellClark.DataStructures.Collections
 			return true;
 		}
 
+		/// <summary>
+		/// Determines whether <paramref name="other"/> contains every element in the current set and at least one
+		/// element <i>not</i> in the current set.
+		/// </summary>
+		/// <param name="other">The other collection.</param>
+		/// <returns>True if the current set is a proper subset of <paramref name="other"/>.</returns>
 		public virtual bool IsProperSubsetOf(IEnumerable<T> other)
 		{
 			if (other is null) throw new ArgumentNullException(nameof(other));
@@ -246,6 +286,11 @@ namespace NewellClark.DataStructures.Collections
 			return true;
 		}
 
+		/// <summary>
+		/// Determines whether the current set contains every element in <paramref name="other"/>.
+		/// </summary>
+		/// <param name="other">The other collection.</param>
+		/// <returns>True if the current set is a superset of <paramref name="other"/>.</returns>
 		public virtual bool IsSupersetOf(IEnumerable<T> other)
 		{
 			if (other is null) throw new ArgumentNullException(nameof(other));
@@ -262,6 +307,12 @@ namespace NewellClark.DataStructures.Collections
 			return true;
 		}
 
+		/// <summary>
+		/// Determines whether the current set contains every element in <paramref name="other"/>, and at least one 
+		/// element <i>not</i> in other.
+		/// </summary>
+		/// <param name="other">The other collection.</param>
+		/// <returns>True if the current set is a proper superset of <paramref name="other"/>.</returns>
 		public virtual bool IsProperSupersetOf(IEnumerable<T> other)
 		{
 			if (other is null) throw new ArgumentNullException(nameof(other));
