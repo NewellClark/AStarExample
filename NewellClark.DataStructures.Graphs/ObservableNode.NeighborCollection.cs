@@ -10,8 +10,7 @@ namespace NewellClark.DataStructures.Graphs
 {
 	partial class ObservableNode<T>
 	{
-		public class NeighborCollection : Set<ObservableNode<T>>,
-			INeighborCollection<ObservableNode<T>>
+		public class NeighborCollection : Set<ObservableNode<T>>
 		{
 			private readonly ObservableNode<T> _owner;
 
