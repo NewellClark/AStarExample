@@ -24,7 +24,10 @@ namespace NewellClark.DataStructures.Collections
 		/// Creates a new <see cref="PriorityQueue{TPriority, TValue}"/> that uses the specified 
 		/// <see cref="IComparer{TPriority}"/> to sort items in ascending order based on priority.
 		/// </summary>
-		/// <param name="comparer"></param>
+		/// <param name="comparer">The <see cref="IComparer{TPriority}"/> to use to sort items.</param>
+		/// <exception cref="ArgumentNullException">
+		/// <paramref name="comparer"/> is null.
+		/// </exception>
 		public PriorityQueue(IComparer<TPriority> comparer)
 		{
 			if (comparer is null) throw new ArgumentNullException(nameof(comparer));
@@ -36,7 +39,10 @@ namespace NewellClark.DataStructures.Collections
 		/// Creates a new <see cref="PriorityQueue{TPriority, TValue}"/> that uses the specified <see cref="Comparison{TPriority}"/> 
 		/// to sort items in ascending order.
 		/// </summary>
-		/// <param name="comparison"></param>
+		/// <param name="comparison">The <see cref="Comparer{TPriority}"/> to use to sort items.</param>
+		/// <exception cref="ArgumentNullException">
+		/// <paramref name="comparison"/> is null.
+		/// </exception>
 		public PriorityQueue(Comparison<TPriority> comparison)
 		{
 			if (comparison is null) throw new ArgumentNullException(nameof(comparison));
@@ -138,7 +144,9 @@ namespace NewellClark.DataStructures.Collections
 		/// Gets an <see cref="IEnumerator{TValue}"/> that iterates over the collection. The items will be iterated
 		/// in the order that they will come out.
 		/// </summary>
-		/// <returns></returns>
+		/// <returns>
+		/// An <see cref="IEnumerator{TValue}"/> for the current <see cref="PriorityQueue{TPriority, TValue}"/>.
+		/// </returns>
 		public IEnumerator<TValue> GetEnumerator()
 		{
 			foreach (var queue in _lookup.Values)

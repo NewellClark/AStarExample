@@ -10,6 +10,9 @@ namespace NewellClark.DataStructures.Graphs
 {
 	partial class ObservableNode<T>
 	{
+		/// <summary>
+		/// A collection of neighboring <see cref="ObservableNode{T}"/>s.
+		/// </summary>
 		public class NeighborCollection : Set<ObservableNode<T>>
 		{
 			private readonly ObservableNode<T> _owner;
@@ -21,11 +24,21 @@ namespace NewellClark.DataStructures.Graphs
 				_owner = owner;
 			}
 
-			protected override bool AddItem(ObservableNode<T> item)
+			/// <summary>
+			/// Adds the specified node to the collection. If the node was added, the node that
+			/// owns the current <see cref="NeighborCollection"/> is added to the other node's 
+			/// <see cref="NeighborCollection"/>. The <see cref="NodesAdded"/> events are raised for both nodes
+			/// only after both <see cref="NeighborCollection"/>s have been updated.
+			/// </summary>
+			/// <param name="node">The node to add.</param>
+			/// <returns>
+			/// True if the node was added.
+			/// </returns>
+			protected override bool AddItem(ObservableNode<T> node)
 			{
-				if (item is null) throw new ArgumentNullException(nameof(item));
+				if (node is null) throw new ArgumentNullException(nameof(node));
 
-				if (item == _owner)
+				if (node == _owner)
 					return false;
 
 				//	We must ensure that neighboring is symmetrical: If you're my neighbor, 
@@ -36,51 +49,73 @@ namespace NewellClark.DataStructures.Graphs
 				//		are added to each others' neighbor collections. Otherwise, event 
 				//		handlers would be able to observe the graph in an invalid state.
 
-				bool weAddedThem = Items.Add(item);
-				bool theyAddedUs = item.Neighbors.Items.Add(_owner);
+				bool weAddedThem = Items.Add(node);
+				bool theyAddedUs = node.Neighbors.Items.Add(_owner);
 
 				Debug.Assert(weAddedThem == theyAddedUs);
 
 				if (weAddedThem)
 				{
-					var ownerArgs = CreateEventArgs(_owner, item);
-					var neighborArgs = CreateEventArgs(item, _owner);
+					var ownerArgs = CreateEventArgs(_owner, node);
+					var neighborArgs = CreateEventArgs(node, _owner);
 
 					_owner.OnNodesAdded(ownerArgs);
-					item.OnNodesAdded(neighborArgs);
+					node.OnNodesAdded(neighborArgs);
 				}
 
 				return weAddedThem;
 			}
 
-			protected override bool RemoveItem(ObservableNode<T> item)
+			/// <summary>
+			/// Removes the specified node from the collection. If the node was removed, the owner of the
+			/// current <see cref="NeighborCollection"/> is removed from the other node's <see cref="NeighborCollection"/>.
+			/// The <see cref="NodesRemoved"/> events for both nodes are raised only after both
+			/// <see cref="NeighborCollection"/>s have been updated.
+			/// </summary>
+			/// <param name="node">The node to remove.</param>
+			/// <returns>
+			/// True if the node was removed.
+			/// </returns>
+			protected override bool RemoveItem(ObservableNode<T> node)
 			{
-				if (item is null) throw new ArgumentNullException(nameof(item));
+				if (node is null) throw new ArgumentNullException(nameof(node));
 
-				bool weRemovedThem = Items.Remove(item);
-				bool theyRemovedUs = item.Neighbors.Items.Remove(_owner);
+				bool weRemovedThem = Items.Remove(node);
+				bool theyRemovedUs = node.Neighbors.Items.Remove(_owner);
 
 				Debug.Assert(weRemovedThem == theyRemovedUs);
 
 				if (weRemovedThem)
 				{
-					var ownerArgs = CreateEventArgs(_owner, item);
-					var neighborArgs = CreateEventArgs(item, _owner);
+					var ownerArgs = CreateEventArgs(_owner, node);
+					var neighborArgs = CreateEventArgs(node, _owner);
 
 					_owner.OnNodesRemoved(ownerArgs);
-					item.OnNodesRemoved(neighborArgs);
+					node.OnNodesRemoved(neighborArgs);
 				}
 
 				return weRemovedThem;
 			}
 
-			protected override bool ContainsItem(ObservableNode<T> item)
+			/// <summary>
+			/// Determines whether the current <see cref="NeighborCollection"/> contains the specified node.
+			/// </summary>
+			/// <param name="node">The node to search for.</param>
+			/// <returns>
+			/// True if the current <see cref="NeighborCollection"/> contains the specified node.
+			/// </returns>
+			protected override bool ContainsItem(ObservableNode<T> node)
 			{
-				if (item is null) throw new ArgumentNullException(nameof(item));
+				if (node is null) throw new ArgumentNullException(nameof(node));
 
-				return base.ContainsItem(item);
+				return base.ContainsItem(node);
 			}
 
+			/// <summary>
+			/// Removes all nodes from the collection. Also removes the owner of the current
+			/// <see cref="NeighborCollection"/> from the <see cref="NeighborCollection"/> of each
+			/// node that was removed.
+			/// </summary>
 			protected override void ClearItems()
 			{
 				var removed = Items.ToArray();

@@ -22,6 +22,9 @@ namespace NewellClark.DataStructures.Graphs
 		/// A new empty <see cref="Path{TNode, TCost}"/> that uses the specified <see cref="CostFunction{TNode, TCost}"/> and
 		/// <see cref="CostAdder{TCost}"/> to compute the cost of traversal, and that has the specified initial cost.
 		/// </returns>
+		/// <exception cref="ArgumentNullException">
+		/// Any argument other than <paramref name="initial"/> is null.
+		/// </exception>
 		public static Path<TNode, TCost> Create<TNode, TCost>(
 			CostFunction<TNode, TCost> costFunction, 
 			CostAdder<TCost> costAdder, 
@@ -43,6 +46,9 @@ namespace NewellClark.DataStructures.Graphs
 		/// <param name="costAdder">A function to add two costs together.</param>
 		/// <param name="initial">The initial cost of the path.</param>
 		/// <returns>A <see cref="Path{TNode, TCost}"/> with a single node; the specified starting node.</returns>
+		/// <exception cref="ArgumentNullException">
+		/// <paramref name="costFunction"/> or <paramref name="costAdder"/> is null.
+		/// </exception>
 		public static Path<TNode, TCost> Create<TNode, TCost>(
 			TNode start, 
 			CostFunction<TNode, TCost> costFunction,
@@ -109,6 +115,9 @@ namespace NewellClark.DataStructures.Graphs
 		/// <summary>
 		/// Gets the node at the head of the path without removing it.
 		/// </summary>
+		/// <exception cref="InvalidOperationException">
+		/// The current <see cref="Path{TNode, TCost}"/> is empty.
+		/// </exception>
 		public TNode Peek()
 		{
 			ThrowIfEmpty();
@@ -134,6 +143,9 @@ namespace NewellClark.DataStructures.Graphs
 		/// <returns>
 		/// A new path created by removing the head from the current path.
 		/// </returns>
+		/// <exception cref="InvalidOperationException">
+		/// The current <see cref="Path{TNode, TCost}"/> is empty.
+		/// </exception>
 		public Path<TNode, TCost> Pop()
 		{
 			ThrowIfEmpty();

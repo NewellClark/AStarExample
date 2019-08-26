@@ -21,7 +21,7 @@ namespace NewellClark.DataStructures.Graphs
 	/// <summary>
 	/// A node with a collection of neighbor nodes that supports adding and removing neighbors.
 	/// </summary>
-	/// <typeparam name="TNode"></typeparam>
+	/// <typeparam name="TNode">Type of node.</typeparam>
 	public interface IMutableNode<TNode> : IHasNeighbors<TNode>
 		where TNode : IMutableNode<TNode>
 	{

@@ -10,22 +10,15 @@ namespace NewellClark.DataStructures.Graphs
 {
 	partial class GraphNode<T>
 	{
+		/// <summary>
+		/// A collection of neighboring <see cref="GraphNode{T}"/>s.
+		/// </summary>
 		public class NeighborCollection : Set<GraphNode<T>>
 		{
 			/// <summary>
 			/// The <see cref="GraphNode{T}"/> that owns the current <see cref="NeighborCollection"/>.
 			/// </summary>
 			private readonly GraphNode<T> _owner;
-
-			internal NeighborCollection(GraphNode<T> owner, IEnumerable<GraphNode<T>> neighbors)
-			{
-				Debug.Assert(owner != null, $"{nameof(owner)} was null.");
-				Debug.Assert(neighbors != null, $"{nameof(neighbors)} was null.");
-				Debug.Assert(!neighbors.Contains(_owner), 
-					$"{nameof(neighbors)} should never contain {nameof(owner)}.");
-
-				_owner = owner;
-			}
 
 			internal NeighborCollection(GraphNode<T> owner)
 			{
@@ -36,12 +29,14 @@ namespace NewellClark.DataStructures.Graphs
 			
 
 			/// <summary>
-			/// Adds the specified node to the collection.
+			/// Adds the specified node to the collection. If the node was added, the node that owns
+			/// the current <see cref="NeighborCollection"/> is added to other node's <see cref="NeighborCollection"/>.
 			/// </summary>
 			/// <param name="node">The node to add.</param>
 			/// <returns>True if added, false otherwise.</returns>
 			/// <exception cref="ArgumentNullException">
-			/// <paramref name="node"/> was null.</exception>
+			/// <paramref name="node"/> was null.
+			/// </exception>
 			protected override bool AddItem(GraphNode<T> node)
 			{
 				if (node == null)
@@ -52,19 +47,23 @@ namespace NewellClark.DataStructures.Graphs
 
 				bool neighborAdded = Items.Add(node);
 				bool ownerAdded = node.Neighbors.Items.Add(_owner);
-
-				Debug.Assert(neighborAdded == ownerAdded);
+				
+				Debug.Assert(neighborAdded == ownerAdded,
+					$"Our {nameof(NeighborCollection)} was not consistent with their {nameof(NeighborCollection)}.");
 
 				return neighborAdded;
 			}
 
 			/// <summary>
-			/// Removes the specified node.
+			/// Removes the specified node. If the node was removed, the node that owns
+			/// the current <see cref="NeighborCollection"/> is removed from the other node's 
+			/// <see cref="NeighborCollection"/>.
 			/// </summary>
 			/// <param name="node">The node to remove.</param>
 			/// <returns>True if removed, false if not.</returns>
 			/// <exception cref="ArgumentNullException">
-			/// <paramref name="node"/> was null.</exception>
+			/// <paramref name="node"/> was null.
+			/// </exception>
 			protected override bool RemoveItem(GraphNode<T> node)
 			{
 				if (node == null)
@@ -72,8 +71,8 @@ namespace NewellClark.DataStructures.Graphs
 
 				bool neighborRemoved = Items.Remove(node);
 				bool ownerRemoved = node.Neighbors.Items.Remove(_owner);
-
-				Debug.Assert(neighborRemoved == ownerRemoved);
+				
+				Debug.Assert(neighborRemoved == ownerRemoved, InconsistentAssertMessage);
 
 				return neighborRemoved;
 			}
@@ -90,7 +89,7 @@ namespace NewellClark.DataStructures.Graphs
 				{
 					bool wasRemoved = node.Neighbors.Items.Remove(_owner);
 
-					Debug.Assert(wasRemoved);
+					Debug.Assert(wasRemoved, InconsistentAssertMessage);
 				}
 			}
 
@@ -104,7 +103,22 @@ namespace NewellClark.DataStructures.Graphs
 				if (node == null)
 					throw new ArgumentNullException(nameof(node));
 
-				return base.ContainsItem(node);
+				bool weContainThem = Items.Contains(node);
+				bool theyContainUs = node.Neighbors.Items.Contains(_owner);
+
+				Debug.Assert(weContainThem == theyContainUs, InconsistentAssertMessage);
+
+				return weContainThem;
+			}
+
+			
+			private static string InconsistentAssertMessage 
+			{
+				get
+				{
+					return $"Our {nameof(NeighborCollection)} was not consistent with their {nameof(NeighborCollection)}.";
+				}
+
 			}
 		}
 	}

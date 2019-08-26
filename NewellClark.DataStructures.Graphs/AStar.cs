@@ -102,6 +102,33 @@ namespace NewellClark.DataStructures.Graphs
 			return empty;
 		}
 
+		/// <summary>
+		/// Attempts to find the shortest path between the specified start and goal nodes.
+		/// </summary>
+		/// <typeparam name="TNode">Type of node.</typeparam>
+		/// <typeparam name="TCost">Type of cost.</typeparam>
+		/// <param name="start">The starting node.</param>
+		/// <param name="goal">The goal node.</param>
+		/// <param name="knownCost">Function to calculate the known cost of traveling between 
+		/// two adjacent nodes.</param>
+		/// <param name="estimatedCost">
+		/// Function to estimate the cost of traveling between two arbitrary nodes.
+		/// The two nodes passed into this function are not guaranteed to be connected.</param>
+		/// <param name="costAdder">Function to add two cost values together.</param>
+		/// <param name="nodeFilter">Filter function to apply to nodes. Nodes will only be considered 
+		/// if this function returns true for them.</param>
+		/// <exception cref="ArgumentNullException">
+		/// Any argument is null.
+		/// </exception>
+		/// <returns>
+		/// The shortest path between the two specified nodes, as determined by the user-supplied cost functions.
+		/// If no path exists, an empty path will be returned.
+		/// </returns>
+		/// <remarks>
+		/// The <paramref name="estimatedCost"/> delegate will be used to estimate the cost of traveling between
+		/// the node at the end of a potential path and the goal. This heuristic must be <b>admissible</b>: it must
+		/// <i>never overestimate the cost</i>.
+		/// </remarks>
 		public static Path<TNode, TCost> FindPath<TNode, TCost>(
 			TNode start, TNode goal,
 			CostFunction<TNode, TCost> knownCost, 
@@ -119,6 +146,32 @@ namespace NewellClark.DataStructures.Graphs
 				default(TCost));
 		}
 
+		/// <summary>
+		/// Attempts to find the shortest path between the specified start and goal nodes.
+		/// </summary>
+		/// <typeparam name="TNode">Type of node.</typeparam>
+		/// <typeparam name="TCost">Type of cost.</typeparam>
+		/// <param name="start">The starting node.</param>
+		/// <param name="goal">The goal node.</param>
+		/// <param name="knownCost">Function to calculate the known cost of traveling between 
+		/// two adjacent nodes.</param>
+		/// <param name="estimatedCost">
+		/// Function to estimate the cost of traveling between two arbitrary nodes.
+		/// The two nodes passed into this function are not guaranteed to be connected.</param>
+		/// <param name="costAdder">Function to add two cost values together.</param>
+		/// <param name="initialCost">The initial cost value.</param>
+		/// <exception cref="ArgumentNullException">
+		/// Any argument other than <paramref name="initialCost"/> is null.
+		/// </exception>
+		/// <returns>
+		/// The shortest path between the two specified nodes, as determined by the user-supplied cost functions.
+		/// If no path exists, an empty path will be returned.
+		/// </returns>
+		/// <remarks>
+		/// The <paramref name="estimatedCost"/> delegate will be used to estimate the cost of traveling between
+		/// the node at the end of a potential path and the goal. This heuristic must be <b>admissible</b>: it must
+		/// <i>never overestimate the cost</i>.
+		/// </remarks>
 		public static Path<TNode, TCost> FindPath<TNode, TCost>(
 			TNode start, TNode goal,
 			CostFunction<TNode, TCost> knownCost,
@@ -130,6 +183,31 @@ namespace NewellClark.DataStructures.Graphs
 			return FindPath(start, goal, knownCost, estimatedCost, costAdder, _ => true, initialCost);
 		}
 
+		/// <summary>
+		/// Attempts to find the shortest path between the specified start and goal nodes.
+		/// </summary>
+		/// <typeparam name="TNode">Type of node.</typeparam>
+		/// <typeparam name="TCost">Type of cost.</typeparam>
+		/// <param name="start">The starting node.</param>
+		/// <param name="goal">The goal node.</param>
+		/// <param name="knownCost">Function to calculate the known cost of traveling between 
+		/// two adjacent nodes.</param>
+		/// <param name="estimatedCost">
+		/// Function to estimate the cost of traveling between two arbitrary nodes.
+		/// The two nodes passed into this function are not guaranteed to be connected.</param>
+		/// <param name="costAdder">Function to add two cost values together.</param>
+		/// <exception cref="ArgumentNullException">
+		/// Any argument other than <paramref name="initialCost"/> is null.
+		/// </exception>
+		/// <returns>
+		/// The shortest path between the two specified nodes, as determined by the user-supplied cost functions.
+		/// If no path exists, an empty path will be returned.
+		/// </returns>
+		/// <remarks>
+		/// The <paramref name="estimatedCost"/> delegate will be used to estimate the cost of traveling between
+		/// the node at the end of a potential path and the goal. This heuristic must be <b>admissible</b>: it must
+		/// <i>never overestimate the cost</i>.
+		/// </remarks>
 		public static Path<TNode, TCost> FindPath<TNode, TCost>(
 			TNode start, TNode goal,
 			CostFunction<TNode, TCost> knownCost,
@@ -139,8 +217,6 @@ namespace NewellClark.DataStructures.Graphs
 		{
 			return FindPath(start, goal, knownCost, remainingCostEstimate, costAdder, default(TCost));
 		}
-
-
 	}
 
 	/// <summary>
