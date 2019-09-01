@@ -138,6 +138,9 @@ namespace NewellClark.DataStructures.Collections
 		/// </summary>
 		public int Count { get; private set; }
 
+		/// <summary>
+		/// Gets a value indicating whether the current <see cref="PriorityQueue{TPriority, TValue}"/> is empty.
+		/// </summary>
 		public bool IsEmpty => Count == 0;
 
 		/// <summary>

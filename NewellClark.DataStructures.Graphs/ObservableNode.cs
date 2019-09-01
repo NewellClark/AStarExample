@@ -27,6 +27,8 @@ namespace NewellClark.DataStructures.Graphs
 
 		public NeighborCollection Neighbors { get; }
 
+		public override string ToString() => $"[{Value}]";
+
 		/// <summary>
 		/// Raised when one or more nodes get added to <see cref="Neighbors"/>.
 		/// </summary>

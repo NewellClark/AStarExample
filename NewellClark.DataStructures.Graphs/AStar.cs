@@ -92,6 +92,7 @@ namespace NewellClark.DataStructures.Graphs
 				
 				if (seen.Contains(head))
 					continue;
+
 				if (goal.Equals(head))
 					return path;
 
@@ -217,6 +218,7 @@ namespace NewellClark.DataStructures.Graphs
 		{
 			return FindPath(start, goal, knownCost, remainingCostEstimate, costAdder, default(TCost));
 		}
+
 	}
 
 	/// <summary>

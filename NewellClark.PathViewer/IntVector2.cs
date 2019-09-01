@@ -4,6 +4,13 @@ using System.Drawing;
 
 namespace NewellClark.PathViewer
 {
+	/// <summary>
+	/// An immutable 2D vector of integers.
+	/// </summary>
+	/// <remarks>
+	/// Yes, value equality has been properly implemented. Also has a good 
+	/// implementation of <see cref="GetHashCode"/>.
+	/// </remarks>
 	struct IntVector2 : IEquatable<IntVector2>
 	{
 		public IntVector2(int x, int y)
@@ -26,6 +33,11 @@ namespace NewellClark.PathViewer
 			return new Vector2(this.X * other.X, this.Y * other.Y);
 		}
 
+		public static bool Equals(IntVector2 left, IntVector2 right)
+		{
+			return left.X == right.X && left.Y == right.Y;
+		}
+
 		public override bool Equals(object obj)
 		{
 			var casted = obj as IntVector2?;
@@ -38,12 +50,11 @@ namespace NewellClark.PathViewer
 
 		public bool Equals(IntVector2 other) => Equals(this, other);
 
-		public override int GetHashCode()
-		{
-			return (X, Y).GetHashCode();
-		}
+		public override int GetHashCode() => (X, Y).GetHashCode();
 
-		public float Length => (float)Math.Sqrt(X * X + Y * Y);
+		public float Length => (float)Math.Sqrt(LengthSquared);
+
+		public int LengthSquared => X * X + Y * Y;
 
 		public int ManhattanLength => Math.Abs(X) + Math.Abs(Y);
 
@@ -54,11 +65,6 @@ namespace NewellClark.PathViewer
 		public static bool operator ==(IntVector2 left, IntVector2 right) => Equals(left, right);
 
 		public static bool operator !=(IntVector2 left, IntVector2 right) => !Equals(left, right);
-
-		public static bool Equals(IntVector2 left, IntVector2 right)
-		{
-			return left.X == right.X && left.Y == right.Y;
-		}
 
 		public static IntVector2 Min(IntVector2 left, IntVector2 right)
 		{
@@ -95,6 +101,10 @@ namespace NewellClark.PathViewer
 		{
 			return new Vector2(vector.X * scalar, vector.Y * scalar);
 		}
+
+		public static int Dot(IntVector2 left, IntVector2 right) => left.X * right.X + left.Y * right.Y;
+
+		public int Dot(IntVector2 other) => X * other.X + Y * other.Y;
 
 		public static IntVector2 Divide(IntVector2 vector, int scalar)
 		{

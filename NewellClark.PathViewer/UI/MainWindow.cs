@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NewellClark.DataStructures.Collections;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +16,7 @@ namespace NewellClark.PathViewer.UI
 		public MainWindow()
 		{
 			InitializeComponent();
+
 		}
 
 		private void MainWindow_Load(object sender, EventArgs e)

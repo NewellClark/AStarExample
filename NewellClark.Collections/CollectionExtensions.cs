@@ -50,21 +50,41 @@ namespace NewellClark.DataStructures.Collections
 			return new ReadOnlyCollectionWrapper<T>(@this);
 		}
 
-		public static int AddRange<T>(this ISet<T> @this, IEnumerable<T> items)
+		/// <summary>
+		/// Adds all the specified elements to the current <see cref="ISet{T}"/>. 
+		/// </summary>
+		/// <typeparam name="T">The type of elements.</typeparam>
+		/// <param name="this">The <see cref="ISet{T}"/> to add to.</param>
+		/// <param name="items">The items to add.</param>
+		/// <returns>
+		/// The number of items that were added.
+		/// </returns>
+		public static int AddRange<T>(this ISet<T> @this, IEnumerable<T> items) => AddRangeCore(@this, items);
+
+		/// <summary>
+		/// Adds all the specified elements to the current <see cref="ISet{T}"/>. 
+		/// </summary>
+		/// <typeparam name="T">The type of elements.</typeparam>
+		/// <param name="this">The <see cref="ISet{T}"/> to add to.</param>
+		/// <param name="items">The items to add.</param>
+		/// <returns>
+		/// The number of items that were added.
+		/// </returns>
+		public static int AddRange<T>(this ISet<T> @this, params T[] items) => AddRangeCore(@this, items);
+
+		private static int AddRangeCore<T>(ISet<T> set, IEnumerable<T> items)
 		{
-			if (@this is null) throw new ArgumentNullException(nameof(@this));
+			if (set is null) throw new ArgumentNullException(nameof(set));
 			if (items is null) throw new ArgumentNullException(nameof(items));
 
 			int added = 0;
 
 			foreach (var item in items)
-				if (@this.Add(item))
+				if (set.Add(item))
 					++added;
 
 			return added;
 		}
-
-		public static int AddRange<T>(this ISet<T> @this, params T[] items) => AddRange(@this, items.AsEnumerable());
 
 		private class ReadOnlyCollectionWrapper<T> : IReadOnlyCollection<T>
 		{
