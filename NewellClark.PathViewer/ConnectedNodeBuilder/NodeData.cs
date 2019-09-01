@@ -8,7 +8,7 @@ using System.Drawing;
 
 namespace NewellClark.PathViewer
 {
-	struct NodeData : INodeData
+	struct NodeData 
 	{
 		public NodeData(Vector2 position)
 		{
