@@ -74,6 +74,29 @@
     <Compile Include="ConnectedNodeBuilder\NodeHighlighter.cs" />
     <Compile Include="ConnectedNodeBuilder\SimpleConnectDisconnectNodeTool.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="DisposableDictionary.cs" />
+    <Compile Include="DisposableList.cs" />
+    <Compile Include="ImageBasedGraphBuilder\DrawingPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ImageBasedGraphBuilder\BitmapGraph.cs" />
+    <Compile Include="ImageBasedGraphBuilder\BlockUnblockNodeTool.cs" />
+    <Compile Include="ImageBasedGraphBuilder\DrawingPanelUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ImageBasedGraphBuilder\DrawingPanelUC.Designer.cs">
+      <DependentUpon>DrawingPanelUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ImageBasedGraphBuilder\MouseOverHighlightTool.cs" />
+    <Compile Include="ImageBasedGraphBuilder\PixelNode.cs" />
+    <Compile Include="ImageBasedGraphBuilder\SetPathEndpointsToggleTool.cs" />
+    <Compile Include="ImageBasedGraphBuilder\TogglablePathFinder.cs" />
+    <Compile Include="ImageBasedGraphBuilder\ToggleToolGroupBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ImageBasedGraphBuilder\ToggleToolGroupBox.Designer.cs">
+      <DependentUpon>ToggleToolGroupBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="IMouseProvider.cs" />
     <Compile Include="ControlExtensions.cs" />
     <Compile Include="Edge.cs" />
@@ -83,8 +106,33 @@
     <Compile Include="IntVector2.cs" />
     <Compile Include="ConnectedNodeBuilder\NodeTools.cs" />
     <Compile Include="ConnectedNodeBuilder\NodeData.cs" />
+    <Compile Include="MvvmGridGraph\Tools\EditNodePassabilityTool.cs" />
+    <Compile Include="MvvmGridGraph\FlyweightIndexedProperty.cs" />
+    <Compile Include="MvvmGridGraph\GridDisplayPanelUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MvvmGridGraph\GridDisplayPanelUC.Designer.cs">
+      <DependentUpon>GridDisplayPanelUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MvvmGridGraph\GridGraph.cs" />
+    <Compile Include="MvvmGridGraph\GridGraph.IndexedProperty.cs">
+      <DependentUpon>GridGraph.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MvvmGridGraph\GridGraphPathFinder.cs" />
+    <Compile Include="MvvmGridGraph\GridGraphViewModel.cs" />
+    <Compile Include="MvvmGridGraph\GridGraphViewPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MvvmGridGraph\GridNode.cs" />
+    <Compile Include="MvvmGridGraph\GridGraphDrawer.cs" />
+    <Compile Include="MvvmGridGraph\GridNodeViewModel.cs" />
+    <Compile Include="MvvmGridGraph\HighlightNodeOnMouseOver.cs" />
+    <Compile Include="MvvmGridGraph\PropertyChangedEvent.cs" />
+    <Compile Include="MvvmGridGraph\PropertySubject.cs" />
+    <Compile Include="MvvmGridGraph\Tools\SetStartGoalTool.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Toggleable.cs" />
     <Compile Include="UI\MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -93,6 +141,15 @@
     </Compile>
     <EmbeddedResource Include="ConnectedNodeBuilder\ConnectedNodeUIWidget.resx">
       <DependentUpon>ConnectedNodeUIWidget.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImageBasedGraphBuilder\DrawingPanelUC.resx">
+      <DependentUpon>DrawingPanelUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImageBasedGraphBuilder\ToggleToolGroupBox.resx">
+      <DependentUpon>ToggleToolGroupBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MvvmGridGraph\GridDisplayPanelUC.resx">
+      <DependentUpon>GridDisplayPanelUC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -130,5 +187,6 @@
       <Name>NewellClark.DataStructures.Graphs</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

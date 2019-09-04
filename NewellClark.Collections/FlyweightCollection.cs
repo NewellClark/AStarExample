@@ -55,6 +55,10 @@ namespace NewellClark.DataStructures.Collections
 			}
 		}
 
+		public IEnumerable<TKey> Keys => _lookup.Keys.AsEnumerable();
+
+		public IEnumerable<TValue> Values => _lookup.Values.AsEnumerable();
+
 		private static IEqualityComparer<TValue> ValueComparer { get; } = EqualityComparer<TValue>.Default;
 	}
 }

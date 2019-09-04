@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace NewellClark.DataStructures.Graphs
 {
+	/// <summary>
+	/// Contains factory methods for creating <see cref="Path{TNode, TCost}"/>s.
+	/// </summary>
 	public static class Path
 	{
 		/// <summary>
@@ -67,6 +70,9 @@ namespace NewellClark.DataStructures.Graphs
 	/// </summary>
 	/// <typeparam name="TNode">The type of each node in the path.</typeparam>
 	/// <typeparam name="TCost">The type used to compute the cost of traversing the path.</typeparam>
+	/// <remarks>
+	/// To create a <see cref="Path{TNode, TCost}"/>, use the factory methods on the static <see cref="Path"/> class.
+	/// </remarks>
 	public class Path<TNode, TCost> : IImmutableStack<TNode>
 	{
 		private readonly CommonMembers _common;

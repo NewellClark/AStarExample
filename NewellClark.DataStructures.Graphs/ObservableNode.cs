@@ -23,8 +23,14 @@ namespace NewellClark.DataStructures.Graphs
 			Neighbors = new NeighborCollection(this);
 		}
 
+		/// <summary>
+		/// Gets the value of the current <see cref="ObservableNode{T}"/>.
+		/// </summary>
 		public T Value { get; }
 
+		/// <summary>
+		/// Gets a collection of all the nodes that are directly connected to the current <see cref="ObservableNode{T}"/>.
+		/// </summary>
 		public NeighborCollection Neighbors { get; }
 
 		public override string ToString() => $"[{Value}]";
@@ -73,7 +79,7 @@ namespace NewellClark.DataStructures.Graphs
 	public class NodeChangedEventArgs<TNode> : EventArgs
 	{
 		public NodeChangedEventArgs(TNode sender, params TNode[] neighbors)
-			: this(sender, neighbors.AsEnumerable()) { }
+			: this(sender, neighbors?.AsEnumerable()) { }
 
 		/// <summary>
 		/// Creates a new <see cref="NodeChangedEventArgs{TNode}"/>.

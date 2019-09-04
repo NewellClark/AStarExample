@@ -28,67 +28,34 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.tabControl = new System.Windows.Forms.TabControl();
-			this.connectedNodeBuilderPage = new System.Windows.Forms.TabPage();
-			this.connectedNodeUIWidget1 = new NewellClark.PathViewer.ConnectedNodeBuilder.ConnectedNodeUIWidget();
-			this.tabControl.SuspendLayout();
-			this.connectedNodeBuilderPage.SuspendLayout();
+			this.gridDisplayPanelUC1 = new NewellClark.PathViewer.MvvmGridGraph.GridDisplayPanelUC();
 			this.SuspendLayout();
 			// 
-			// tabControl
+			// gridDisplayPanelUC1
 			// 
-			this.tabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.gridDisplayPanelUC1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.tabControl.Controls.Add(this.connectedNodeBuilderPage);
-			this.tabControl.Location = new System.Drawing.Point(9, 9);
-			this.tabControl.Margin = new System.Windows.Forms.Padding(0);
-			this.tabControl.Name = "tabControl";
-			this.tabControl.SelectedIndex = 0;
-			this.tabControl.Size = new System.Drawing.Size(1092, 739);
-			this.tabControl.TabIndex = 0;
-			// 
-			// connectedNodeBuilderPage
-			// 
-			this.connectedNodeBuilderPage.Controls.Add(this.connectedNodeUIWidget1);
-			this.connectedNodeBuilderPage.Location = new System.Drawing.Point(4, 22);
-			this.connectedNodeBuilderPage.Name = "connectedNodeBuilderPage";
-			this.connectedNodeBuilderPage.Padding = new System.Windows.Forms.Padding(3);
-			this.connectedNodeBuilderPage.Size = new System.Drawing.Size(1084, 713);
-			this.connectedNodeBuilderPage.TabIndex = 0;
-			this.connectedNodeBuilderPage.Text = "Connected Node Builder";
-			this.connectedNodeBuilderPage.UseVisualStyleBackColor = true;
-			// 
-			// connectedNodeUIWidget1
-			// 
-			this.connectedNodeUIWidget1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.connectedNodeUIWidget1.Location = new System.Drawing.Point(3, 3);
-			this.connectedNodeUIWidget1.Margin = new System.Windows.Forms.Padding(0);
-			this.connectedNodeUIWidget1.Name = "connectedNodeUIWidget1";
-			this.connectedNodeUIWidget1.Size = new System.Drawing.Size(1078, 707);
-			this.connectedNodeUIWidget1.TabIndex = 0;
+			this.gridDisplayPanelUC1.Location = new System.Drawing.Point(12, 12);
+			this.gridDisplayPanelUC1.Name = "gridDisplayPanelUC1";
+			this.gridDisplayPanelUC1.Size = new System.Drawing.Size(1086, 733);
+			this.gridDisplayPanelUC1.TabIndex = 0;
 			// 
 			// MainWindow
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1110, 757);
-			this.Controls.Add(this.tabControl);
+			this.Controls.Add(this.gridDisplayPanelUC1);
 			this.Name = "MainWindow";
 			this.Text = "MainWindow";
 			this.Load += new System.EventHandler(this.MainWindow_Load);
-			this.tabControl.ResumeLayout(false);
-			this.connectedNodeBuilderPage.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
 
 		#endregion
 
-		private System.Windows.Forms.TabControl tabControl;
-		private System.Windows.Forms.TabPage connectedNodeBuilderPage;
-		private ConnectedNodeBuilder.ConnectedNodeUIWidget connectedNodeUIWidget1;
+		private MvvmGridGraph.GridDisplayPanelUC gridDisplayPanelUC1;
 	}
 }

@@ -11,7 +11,7 @@ namespace NewellClark.PathViewer
 	/// Yes, value equality has been properly implemented. Also has a good 
 	/// implementation of <see cref="GetHashCode"/>.
 	/// </remarks>
-	struct IntVector2 : IEquatable<IntVector2>
+	public struct IntVector2 : IEquatable<IntVector2>
 	{
 		public IntVector2(int x, int y)
 		{
@@ -23,14 +23,43 @@ namespace NewellClark.PathViewer
 
 		public int Y { get; }
 		
-		public IntVector2 Scale(IntVector2 other)
+		/// <summary>
+		/// Performs component-wise multiplication between the current vector and the other vector, producing
+		/// a new vector.
+		/// </summary>
+		/// <param name="other"></param>
+		/// <returns></returns>
+		public IntVector2 Multiply(IntVector2 other)
 		{
 			return new IntVector2(this.X * other.X, this.Y * other.Y);
 		}
 
-		public Vector2 Scale(Vector2 other)
+		public Vector2 Multiply(Vector2 other)
 		{
 			return new Vector2(this.X * other.X, this.Y * other.Y);
+		}
+
+		/// <summary>
+		/// Divides the components of the current <see cref="IntVector2"/> by the components of
+		/// the other <see cref="IntVector2"/>, rounding towards zero.
+		/// </summary>
+		/// <param name="other"></param>
+		/// <returns></returns>
+		public IntVector2 Divide(IntVector2 other)
+		{
+			return new IntVector2(this.X / other.X, this.Y / other.Y);
+		}
+
+		public Vector2 Divide(Vector2 other)
+		{
+			return new Vector2(this.X / other.X, this.Y / other.Y);
+		}
+
+		public IntVector2 DivideRoundDown(IntVector2 other)
+		{
+			return new IntVector2(
+				this.X.DivRoundDown(other.X),
+				this.Y.DivRoundDown(other.Y));
 		}
 
 		public static bool Equals(IntVector2 left, IntVector2 right)

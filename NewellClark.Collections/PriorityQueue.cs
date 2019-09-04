@@ -47,7 +47,8 @@ namespace NewellClark.DataStructures.Collections
 		{
 			if (comparison is null) throw new ArgumentNullException(nameof(comparison));
 
-			_lookup = new SortedDictionary<TPriority, Queue<TValue>>(Comparer<TPriority>.Create(comparison));
+			var comparer = Comparer<TPriority>.Create(comparison);
+			_lookup = new SortedDictionary<TPriority, Queue<TValue>>(comparer);
 		}
 
 		/// <summary>

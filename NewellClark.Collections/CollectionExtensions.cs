@@ -51,6 +51,16 @@ namespace NewellClark.DataStructures.Collections
 		}
 
 		/// <summary>
+		/// Creates a read-only wrapper around the current <see cref="ISet{T}"/>.
+		/// </summary>
+		/// <typeparam name="T">The type of element in the set.</typeparam>
+		/// <param name="this"></param>
+		/// <returns>
+		/// A read-only wrapper that wraps the current <see cref="ISet{T}"/> instance.
+		/// </returns>
+		public static ReadOnlySet<T> AsReadOnly<T>(this ISet<T> @this) => new ReadOnlySet<T>(@this);
+
+		/// <summary>
 		/// Adds all the specified elements to the current <see cref="ISet{T}"/>. 
 		/// </summary>
 		/// <typeparam name="T">The type of elements.</typeparam>

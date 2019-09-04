@@ -7,6 +7,7 @@ using System.Reactive.Linq;
 using System.Windows.Forms;
 using System.Diagnostics;
 using NewellClark.DataStructures.Collections;
+using System.Drawing;
 
 namespace NewellClark.PathViewer
 {
@@ -108,5 +109,10 @@ namespace NewellClark.PathViewer
 			public IObservable<MouseEventArgs> WhenMouseWheel { get; }
 		}
 
+		public static Color GetPixel(this Bitmap @this, Point point) => @this.GetPixel(point.X, point.Y);
+		public static Color GetPixel(this Bitmap @this, IntVector2 point) => @this.GetPixel(point.X, point.Y);
+		public static void SetPixel(this Bitmap @this, Point point, Color color) => @this.SetPixel(point.X, point.Y, color);
+		public static void SetPixel(this Bitmap @this, IntVector2 point, Color color) => @this.SetPixel(point.X, point.Y, color);
+		public static Rectangle Bounds(this Image @this) => new Rectangle(Point.Empty, @this.Size);
 	}
 }

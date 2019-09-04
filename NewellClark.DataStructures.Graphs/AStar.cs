@@ -13,7 +13,7 @@ namespace NewellClark.DataStructures.Graphs
 	public static class AStar
 	{
 		/// <summary>
-		/// Attempts to find the shortest path between the specified start and goal nodes.
+		/// Attempts to find the path with the lowest cost between the specified start and goal nodes.
 		/// </summary>
 		/// <typeparam name="TNode">Type of node.</typeparam>
 		/// <typeparam name="TCost">Type of cost.</typeparam>
@@ -25,6 +25,7 @@ namespace NewellClark.DataStructures.Graphs
 		/// Function to estimate the cost of traveling between two arbitrary nodes.
 		/// The two nodes passed into this function are not guaranteed to be connected.</param>
 		/// <param name="costAdder">Function to add two cost values together.</param>
+		/// <param name="costComparer">Comparer used to choose the path with the lowest cost.</param>
 		/// <param name="nodeFilter">Filter function to apply to nodes. Nodes will only be considered 
 		/// if this function returns true for them.</param>
 		/// <param name="initialCost">The initial cost value.</param>
@@ -45,6 +46,7 @@ namespace NewellClark.DataStructures.Graphs
 			CostFunction<TNode, TCost> knownCost,
 			CostFunction<TNode, TCost> estimatedCost,
 			CostAdder<TCost> costAdder,
+			IComparer<TCost> costComparer,
 			Predicate<TNode> nodeFilter,
 			TCost initialCost)
 			where TNode : IHasNeighbors<TNode>
@@ -54,11 +56,12 @@ namespace NewellClark.DataStructures.Graphs
 			if (knownCost is null) throw new ArgumentNullException(nameof(knownCost));
 			if (estimatedCost is null) throw new ArgumentNullException(nameof(estimatedCost));
 			if (costAdder is null) throw new ArgumentNullException(nameof(costAdder));
+			if (costComparer is null) throw new ArgumentNullException(nameof(costComparer));
 			if (nodeFilter is null) throw new ArgumentNullException(nameof(nodeFilter));
 			
 
 			var seen = new HashSet<TNode>();
-			var queue = new PriorityQueue<TCost, Path<TNode, TCost>>();
+			var queue = new PriorityQueue<TCost, Path<TNode, TCost>>(costComparer);
 			var empty = Path.Create(knownCost, costAdder, initialCost);
 			enqueuePath(empty.Push(start));
 			
@@ -101,6 +104,69 @@ namespace NewellClark.DataStructures.Graphs
 			}
 
 			return empty;
+		}
+
+		public static Path<TNode, TCost> FindPath<TNode, TCost>(
+			TNode start, TNode goal,
+			CostFunction<TNode, TCost> knownCost,
+			CostFunction<TNode, TCost> estimatedCost,
+			CostAdder<TCost> costAdder,
+			Comparison<TCost> costComparison,
+			Predicate<TNode> nodeFilter,
+			TCost initialCost)
+			where TNode : IHasNeighbors<TNode>
+		{
+			return FindPath(start, goal, 
+				knownCost, estimatedCost, costAdder,
+				Comparer<TCost>.Create(costComparison),
+				nodeFilter, initialCost);
+		}
+
+		public static Path<TNode, TCost> FindPath<TNode, TCost>(
+			TNode start, TNode goal,
+			CostFunction<TNode, TCost> knownCost,
+			CostFunction<TNode, TCost> estimatedCost,
+			CostAdder<TCost> costAdder,
+			Comparison<TCost> costComparison,
+			TCost initialCost)
+			where TNode : IHasNeighbors<TNode>
+		{
+			return FindPath(
+				start, goal, knownCost, estimatedCost, costAdder, 
+				Comparer<TCost>.Create(costComparison),
+				_ => true, initialCost);
+		}
+
+		public static Path<TNode, TCost> FindPath<TNode, TCost>(
+			TNode start, TNode goal,
+			CostFunction<TNode, TCost> knownCost,
+			CostFunction<TNode, TCost> estimatedCost,
+			CostAdder<TCost> costAdder,
+			Comparison<TCost> costComparison)
+			where TNode : IHasNeighbors<TNode>
+		{
+			return FindPath(
+				start, goal, knownCost, estimatedCost, costAdder,
+				Comparer<TCost>.Create(costComparison),
+				_ => true, default(TCost));
+		}
+
+		public static Path<TNode, TCost> FindPath<TNode, TCost>(
+			TNode start, TNode goal,
+			CostFunction<TNode, TCost> knownCost,
+			CostFunction<TNode, TCost> estimatedCost,
+			CostAdder<TCost> costAdder,
+			Predicate<TNode> nodeFilter,
+			TCost initialCost)
+			where TNode : IHasNeighbors<TNode>
+		{
+			return FindPath(
+				start, goal,
+				knownCost, estimatedCost,
+				costAdder,
+				Comparer<TCost>.Default,
+				nodeFilter,
+				initialCost);
 		}
 
 		/// <summary>
@@ -212,11 +278,11 @@ namespace NewellClark.DataStructures.Graphs
 		public static Path<TNode, TCost> FindPath<TNode, TCost>(
 			TNode start, TNode goal,
 			CostFunction<TNode, TCost> knownCost,
-			CostFunction<TNode, TCost> remainingCostEstimate,
+			CostFunction<TNode, TCost> estimatedCost,
 			CostAdder<TCost> costAdder)
 			where TNode : IHasNeighbors<TNode>
 		{
-			return FindPath(start, goal, knownCost, remainingCostEstimate, costAdder, default(TCost));
+			return FindPath(start, goal, knownCost, estimatedCost, costAdder, default(TCost));
 		}
 
 	}

@@ -286,7 +286,12 @@ namespace NewellClark.PathViewer.ConnectedNodeBuilder
 				return (left.Value.Position - right.Value.Position).Length();
 			}
 
-			ShortestPath = await Task.Run(() => AStar.FindPath(StartNode, GoalNode, costFunc, costFunc, costAdder));
+			Comparison<float> evil = (x, y) => Comparer<float>.Default.Compare(x, y);
+			//ShortestPath = await Task.Run(() => AStar.FindPath(StartNode, GoalNode, costFunc, costFunc, costAdder));
+			ShortestPath = await Task.Run(() =>
+			{
+				return AStar.FindPath(StartNode, GoalNode, costFunc, costFunc, costAdder, evil);
+			});
 		}
 
 	}
