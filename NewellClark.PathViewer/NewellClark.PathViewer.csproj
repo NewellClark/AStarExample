@@ -65,47 +65,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Circle.cs" />
-    <Compile Include="ConnectedNodeBuilder\ConnectedNodeUIWidget.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="ConnectedNodeBuilder\ConnectedNodeUIWidget.Designer.cs">
-      <DependentUpon>ConnectedNodeUIWidget.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ConnectedNodeBuilder\NodeHighlighter.cs" />
-    <Compile Include="ConnectedNodeBuilder\SimpleConnectDisconnectNodeTool.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="DisposableDictionary.cs" />
     <Compile Include="DisposableList.cs" />
-    <Compile Include="ImageBasedGraphBuilder\DrawingPanel.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ImageBasedGraphBuilder\BitmapGraph.cs" />
-    <Compile Include="ImageBasedGraphBuilder\BlockUnblockNodeTool.cs" />
-    <Compile Include="ImageBasedGraphBuilder\DrawingPanelUC.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="ImageBasedGraphBuilder\DrawingPanelUC.Designer.cs">
-      <DependentUpon>DrawingPanelUC.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ImageBasedGraphBuilder\MouseOverHighlightTool.cs" />
-    <Compile Include="ImageBasedGraphBuilder\PixelNode.cs" />
-    <Compile Include="ImageBasedGraphBuilder\SetPathEndpointsToggleTool.cs" />
-    <Compile Include="ImageBasedGraphBuilder\TogglablePathFinder.cs" />
-    <Compile Include="ImageBasedGraphBuilder\ToggleToolGroupBox.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="ImageBasedGraphBuilder\ToggleToolGroupBox.Designer.cs">
-      <DependentUpon>ToggleToolGroupBox.cs</DependentUpon>
-    </Compile>
     <Compile Include="IMouseProvider.cs" />
     <Compile Include="ControlExtensions.cs" />
     <Compile Include="Edge.cs" />
     <Compile Include="Geometry.cs" />
-    <Compile Include="ConnectedNodeBuilder\GraphPresenter.cs" />
-    <Compile Include="ConnectedNodeBuilder\GraphEditor.cs" />
     <Compile Include="IntVector2.cs" />
-    <Compile Include="ConnectedNodeBuilder\NodeTools.cs" />
-    <Compile Include="ConnectedNodeBuilder\NodeData.cs" />
     <Compile Include="MvvmGridGraph\AllowedMovementSelectorBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -169,15 +136,6 @@
     <Compile Include="UI\MainWindow.Designer.cs">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="ConnectedNodeBuilder\ConnectedNodeUIWidget.resx">
-      <DependentUpon>ConnectedNodeUIWidget.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ImageBasedGraphBuilder\DrawingPanelUC.resx">
-      <DependentUpon>DrawingPanelUC.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ImageBasedGraphBuilder\ToggleToolGroupBox.resx">
-      <DependentUpon>ToggleToolGroupBox.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="MvvmGridGraph\AllowedMovementSelectorBox.resx">
       <DependentUpon>AllowedMovementSelectorBox.cs</DependentUpon>
     </EmbeddedResource>

@@ -113,21 +113,6 @@ namespace NewellClark.PathViewer
 		}
 		public static IntVector2 BottomRight(this Rectangle @this) => new IntVector2(@this.Right, @this.Bottom);
 
-		public static RectangleF Bounds(this Edge<ObservableNode<NodeData>> @this)
-		{
-			Vector2 topLeft = Vector2.Min(
-				@this.Left.Value.Bounds.Min(),
-				@this.Right.Value.Bounds.Min());
-
-			Vector2 bottomRight = Vector2.Max(
-				@this.Left.Value.Bounds.Max(),
-				@this.Right.Value.Bounds.Max());
-
-			Vector2 size = bottomRight - topLeft;
-
-			return new RectangleF(topLeft.ToPointF(), size.ToSizeF());
-		}
-
 		public static int DivRoundDown(this int @this, int divisor)
 		{
 			if (divisor == 0) throw new DivideByZeroException();
