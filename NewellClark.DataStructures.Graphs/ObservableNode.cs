@@ -69,7 +69,7 @@ namespace NewellClark.DataStructures.Graphs
 
 		ISet<ObservableNode<T>> IMutableNode<ObservableNode<T>>.Neighbors => Neighbors;
 
-		IEnumerable<ObservableNode<T>> IHasNeighbors<ObservableNode<T>>.Neighbors => Neighbors;
+		IEnumerable<ObservableNode<T>> IGraphNode<ObservableNode<T>>.Neighbors => Neighbors;
 	}
 
 	/// <summary>

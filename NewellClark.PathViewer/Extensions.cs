@@ -15,7 +15,7 @@ namespace NewellClark.PathViewer
 	static class Extensions
 	{
 		public static IEnumerable<Edge<TNode>> Edges<TNode>(this TNode @this)
-			where TNode : IHasNeighbors<TNode>
+			where TNode : IGraphNode<TNode>
 		{
 			foreach (var neighbor in @this.Neighbors)
 				yield return new Edge<TNode>(@this, neighbor);

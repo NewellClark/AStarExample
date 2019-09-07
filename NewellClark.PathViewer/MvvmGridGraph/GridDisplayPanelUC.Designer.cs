@@ -28,34 +28,40 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.sidebarGroupBox = new System.Windows.Forms.GroupBox();
-			this.blockUnblockRadioButton = new System.Windows.Forms.RadioButton();
+			this.pathInfoDisplayer = new NewellClark.PathViewer.MvvmGridGraph.PathInfoDisplayer();
+			this.heuristicSelectorBox = new NewellClark.PathViewer.MvvmGridGraph.PathFinderHeuristicSelectorBox();
+			this.toolSelectorBox = new NewellClark.PathViewer.MvvmGridGraph.MutuallyExclusiveOptionSelectorBox();
 			this.gridGraphViewPanel = new NewellClark.PathViewer.MvvmGridGraph.GridGraphViewPanel();
-			this.setStartGoalRadioButton = new System.Windows.Forms.RadioButton();
-			this.sidebarGroupBox.SuspendLayout();
+			this.allowedMovementSelectorBox = new NewellClark.PathViewer.MvvmGridGraph.AllowedMovementSelectorBox();
 			this.SuspendLayout();
 			// 
-			// sidebarGroupBox
+			// pathInfoDisplayer
 			// 
-			this.sidebarGroupBox.Controls.Add(this.setStartGoalRadioButton);
-			this.sidebarGroupBox.Controls.Add(this.blockUnblockRadioButton);
-			this.sidebarGroupBox.Location = new System.Drawing.Point(0, 3);
-			this.sidebarGroupBox.Name = "sidebarGroupBox";
-			this.sidebarGroupBox.Size = new System.Drawing.Size(215, 718);
-			this.sidebarGroupBox.TabIndex = 1;
-			this.sidebarGroupBox.TabStop = false;
-			this.sidebarGroupBox.Text = "Node Tools";
+			this.pathInfoDisplayer.EuclidianDistance = null;
+			this.pathInfoDisplayer.Location = new System.Drawing.Point(3, 456);
+			this.pathInfoDisplayer.ManhattanDistance = null;
+			this.pathInfoDisplayer.MinimumSize = new System.Drawing.Size(166, 118);
+			this.pathInfoDisplayer.Name = "pathInfoDisplayer";
+			this.pathInfoDisplayer.NodeCount = null;
+			this.pathInfoDisplayer.NullText = "---";
+			this.pathInfoDisplayer.PathCost = null;
+			this.pathInfoDisplayer.Size = new System.Drawing.Size(212, 118);
+			this.pathInfoDisplayer.TabIndex = 4;
 			// 
-			// blockUnblockRadioButton
+			// heuristicSelectorBox
 			// 
-			this.blockUnblockRadioButton.AutoSize = true;
-			this.blockUnblockRadioButton.Location = new System.Drawing.Point(6, 19);
-			this.blockUnblockRadioButton.Name = "blockUnblockRadioButton";
-			this.blockUnblockRadioButton.Size = new System.Drawing.Size(127, 17);
-			this.blockUnblockRadioButton.TabIndex = 0;
-			this.blockUnblockRadioButton.TabStop = true;
-			this.blockUnblockRadioButton.Text = "Block/unblock nodes";
-			this.blockUnblockRadioButton.UseVisualStyleBackColor = true;
+			this.heuristicSelectorBox.Heuristic = NewellClark.PathViewer.MvvmGridGraph.PathFinderHeuristic.Euclidian;
+			this.heuristicSelectorBox.Location = new System.Drawing.Point(3, 182);
+			this.heuristicSelectorBox.Name = "heuristicSelectorBox";
+			this.heuristicSelectorBox.Size = new System.Drawing.Size(212, 123);
+			this.heuristicSelectorBox.TabIndex = 2;
+			// 
+			// toolSelectorBox
+			// 
+			this.toolSelectorBox.Location = new System.Drawing.Point(3, 3);
+			this.toolSelectorBox.Name = "toolSelectorBox";
+			this.toolSelectorBox.Size = new System.Drawing.Size(212, 173);
+			this.toolSelectorBox.TabIndex = 1;
 			// 
 			// gridGraphViewPanel
 			// 
@@ -67,27 +73,26 @@
 			this.gridGraphViewPanel.Size = new System.Drawing.Size(778, 718);
 			this.gridGraphViewPanel.TabIndex = 0;
 			// 
-			// setStartGoalRadioButton
+			// allowedMovementSelectorBox
 			// 
-			this.setStartGoalRadioButton.AutoSize = true;
-			this.setStartGoalRadioButton.Location = new System.Drawing.Point(6, 42);
-			this.setStartGoalRadioButton.Name = "setStartGoalRadioButton";
-			this.setStartGoalRadioButton.Size = new System.Drawing.Size(89, 17);
-			this.setStartGoalRadioButton.TabIndex = 1;
-			this.setStartGoalRadioButton.TabStop = true;
-			this.setStartGoalRadioButton.Text = "Set start/goal";
-			this.setStartGoalRadioButton.UseVisualStyleBackColor = true;
+			this.allowedMovementSelectorBox.Location = new System.Drawing.Point(3, 311);
+			this.allowedMovementSelectorBox.Name = "allowedMovementSelectorBox";
+			this.allowedMovementSelectorBox.Size = new System.Drawing.Size(212, 139);
+			this.allowedMovementSelectorBox.TabIndex = 5;
+			this.allowedMovementSelectorBox.Value = NewellClark.PathViewer.MvvmGridGraph.GraphMovements.Orthogonal;
 			// 
 			// GridDisplayPanelUC
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Controls.Add(this.sidebarGroupBox);
+			this.Controls.Add(this.allowedMovementSelectorBox);
+			this.Controls.Add(this.pathInfoDisplayer);
+			this.Controls.Add(this.heuristicSelectorBox);
+			this.Controls.Add(this.toolSelectorBox);
 			this.Controls.Add(this.gridGraphViewPanel);
 			this.Name = "GridDisplayPanelUC";
 			this.Size = new System.Drawing.Size(1002, 724);
-			this.sidebarGroupBox.ResumeLayout(false);
-			this.sidebarGroupBox.PerformLayout();
+			this.Load += new System.EventHandler(this.GridDisplayPanelUC_Load);
 			this.ResumeLayout(false);
 
 		}
@@ -95,8 +100,9 @@
 		#endregion
 
 		private GridGraphViewPanel gridGraphViewPanel;
-		private System.Windows.Forms.GroupBox sidebarGroupBox;
-		private System.Windows.Forms.RadioButton blockUnblockRadioButton;
-		private System.Windows.Forms.RadioButton setStartGoalRadioButton;
+		private MutuallyExclusiveOptionSelectorBox toolSelectorBox;
+		private PathFinderHeuristicSelectorBox heuristicSelectorBox;
+		private PathInfoDisplayer pathInfoDisplayer;
+		private AllowedMovementSelectorBox allowedMovementSelectorBox;
 	}
 }

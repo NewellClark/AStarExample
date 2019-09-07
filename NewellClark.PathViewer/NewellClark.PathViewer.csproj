@@ -106,6 +106,36 @@
     <Compile Include="IntVector2.cs" />
     <Compile Include="ConnectedNodeBuilder\NodeTools.cs" />
     <Compile Include="ConnectedNodeBuilder\NodeData.cs" />
+    <Compile Include="MvvmGridGraph\AllowedMovementSelectorBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MvvmGridGraph\AllowedMovementSelectorBox.Designer.cs">
+      <DependentUpon>AllowedMovementSelectorBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MvvmGridGraph\MutuallyExclusiveOptionSelectorBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MvvmGridGraph\MutuallyExclusiveOptionSelectorBox.Designer.cs">
+      <DependentUpon>MutuallyExclusiveOptionSelectorBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MvvmGridGraph\OptionsSelectorBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MvvmGridGraph\OptionsSelectorBox.Designer.cs">
+      <DependentUpon>OptionsSelectorBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MvvmGridGraph\PathFinderHeuristicSelectorBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MvvmGridGraph\PathFinderHeuristicSelectorBox.Designer.cs">
+      <DependentUpon>PathFinderHeuristicSelectorBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MvvmGridGraph\PathInfoDisplayer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MvvmGridGraph\PathInfoDisplayer.Designer.cs">
+      <DependentUpon>PathInfoDisplayer.cs</DependentUpon>
+    </Compile>
     <Compile Include="MvvmGridGraph\Tools\EditNodePassabilityTool.cs" />
     <Compile Include="MvvmGridGraph\FlyweightIndexedProperty.cs" />
     <Compile Include="MvvmGridGraph\GridDisplayPanelUC.cs">
@@ -148,8 +178,23 @@
     <EmbeddedResource Include="ImageBasedGraphBuilder\ToggleToolGroupBox.resx">
       <DependentUpon>ToggleToolGroupBox.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="MvvmGridGraph\AllowedMovementSelectorBox.resx">
+      <DependentUpon>AllowedMovementSelectorBox.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MvvmGridGraph\GridDisplayPanelUC.resx">
       <DependentUpon>GridDisplayPanelUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MvvmGridGraph\MutuallyExclusiveOptionSelectorBox.resx">
+      <DependentUpon>MutuallyExclusiveOptionSelectorBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MvvmGridGraph\OptionsSelectorBox.resx">
+      <DependentUpon>OptionsSelectorBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MvvmGridGraph\PathFinderHeuristicSelectorBox.resx">
+      <DependentUpon>PathFinderHeuristicSelectorBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MvvmGridGraph\PathInfoDisplayer.resx">
+      <DependentUpon>PathInfoDisplayer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

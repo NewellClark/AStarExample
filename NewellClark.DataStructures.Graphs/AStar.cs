@@ -49,7 +49,7 @@ namespace NewellClark.DataStructures.Graphs
 			IComparer<TCost> costComparer,
 			Predicate<TNode> nodeFilter,
 			TCost initialCost)
-			where TNode : IHasNeighbors<TNode>
+			where TNode : IGraphNode<TNode>
 		{
 			if (ReferenceEquals(start, null)) throw new ArgumentNullException(nameof(start));
 			if (ReferenceEquals(goal, null)) throw new ArgumentNullException(nameof(goal));
@@ -114,7 +114,7 @@ namespace NewellClark.DataStructures.Graphs
 			Comparison<TCost> costComparison,
 			Predicate<TNode> nodeFilter,
 			TCost initialCost)
-			where TNode : IHasNeighbors<TNode>
+			where TNode : IGraphNode<TNode>
 		{
 			return FindPath(start, goal, 
 				knownCost, estimatedCost, costAdder,
@@ -129,7 +129,7 @@ namespace NewellClark.DataStructures.Graphs
 			CostAdder<TCost> costAdder,
 			Comparison<TCost> costComparison,
 			TCost initialCost)
-			where TNode : IHasNeighbors<TNode>
+			where TNode : IGraphNode<TNode>
 		{
 			return FindPath(
 				start, goal, knownCost, estimatedCost, costAdder, 
@@ -143,7 +143,7 @@ namespace NewellClark.DataStructures.Graphs
 			CostFunction<TNode, TCost> estimatedCost,
 			CostAdder<TCost> costAdder,
 			Comparison<TCost> costComparison)
-			where TNode : IHasNeighbors<TNode>
+			where TNode : IGraphNode<TNode>
 		{
 			return FindPath(
 				start, goal, knownCost, estimatedCost, costAdder,
@@ -158,7 +158,7 @@ namespace NewellClark.DataStructures.Graphs
 			CostAdder<TCost> costAdder,
 			Predicate<TNode> nodeFilter,
 			TCost initialCost)
-			where TNode : IHasNeighbors<TNode>
+			where TNode : IGraphNode<TNode>
 		{
 			return FindPath(
 				start, goal,
@@ -202,7 +202,7 @@ namespace NewellClark.DataStructures.Graphs
 			CostFunction<TNode, TCost> estimatedCost,
 			CostAdder<TCost> costAdder, 
 			Predicate<TNode> nodeFilter)
-			where TNode : IHasNeighbors<TNode>
+			where TNode : IGraphNode<TNode>
 		{
 			return FindPath(
 				start, goal, 
@@ -245,7 +245,7 @@ namespace NewellClark.DataStructures.Graphs
 			CostFunction<TNode, TCost> estimatedCost,
 			CostAdder<TCost> costAdder,
 			TCost initialCost)
-			where TNode : IHasNeighbors<TNode>
+			where TNode : IGraphNode<TNode>
 		{
 			return FindPath(start, goal, knownCost, estimatedCost, costAdder, _ => true, initialCost);
 		}
@@ -280,7 +280,7 @@ namespace NewellClark.DataStructures.Graphs
 			CostFunction<TNode, TCost> knownCost,
 			CostFunction<TNode, TCost> estimatedCost,
 			CostAdder<TCost> costAdder)
-			where TNode : IHasNeighbors<TNode>
+			where TNode : IGraphNode<TNode>
 		{
 			return FindPath(start, goal, knownCost, estimatedCost, costAdder, default(TCost));
 		}

@@ -10,7 +10,7 @@ namespace NewellClark.DataStructures.Graphs
 	/// Represents a node that has neighbors.
 	/// </summary>
 	/// <typeparam name="TNode">The type of each neighbor.</typeparam>
-	public interface IHasNeighbors<out TNode>
+	public interface IGraphNode<out TNode>
 	{
 		/// <summary>
 		/// Gets a collection of all adjacent nodes.
@@ -22,7 +22,7 @@ namespace NewellClark.DataStructures.Graphs
 	/// A node with a collection of neighbor nodes that supports adding and removing neighbors.
 	/// </summary>
 	/// <typeparam name="TNode">Type of node.</typeparam>
-	public interface IMutableNode<TNode> : IHasNeighbors<TNode>
+	public interface IMutableNode<TNode> : IGraphNode<TNode>
 		where TNode : IMutableNode<TNode>
 	{
 		/// <summary>
@@ -60,7 +60,7 @@ namespace NewellClark.DataStructures.Graphs
 		/// The sequence is lazily evaluated on demand.
 		/// </remarks>
 		public static IEnumerable<TNode> TraverseDepthFirst<TNode>(this TNode @this)
-			where TNode: IHasNeighbors<TNode>
+			where TNode: IGraphNode<TNode>
 		{
 			if (@this == null) throw new ArgumentNullException();
 
@@ -100,7 +100,7 @@ namespace NewellClark.DataStructures.Graphs
 		/// The sequence is lazily-evaluated on demand.
 		/// </remarks>
 		public static IEnumerable<TNode> TraverseBreadthFirst<TNode>(this TNode @this)
-			where TNode: IHasNeighbors<TNode>
+			where TNode: IGraphNode<TNode>
 		{
 			if (@this == null) throw new ArgumentNullException(nameof(@this));
 

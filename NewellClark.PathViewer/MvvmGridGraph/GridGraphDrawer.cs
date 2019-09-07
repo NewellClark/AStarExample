@@ -1,4 +1,5 @@
 ﻿using NewellClark.DataStructures.Collections;
+using NewellClark.DataStructures.Graphs;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -35,6 +36,8 @@ namespace NewellClark.PathViewer.MvvmGridGraph
 		{
 			void onNodeChanged(GridNodeViewModel nodeVm) => _control.Invalidate(nodeVm.Bounds);
 			void onViewBoundsChanged(Rectangle bounds) => _control.Invalidate(bounds);
+			void onPathChanged(object sender, EventArgs e) => _control.Invalidate();
+			_vm.PathFinder.ShortestPathChanged += onPathChanged;
 
 			var viewBoundsChanged = _vm.CellSizeChanged
 				.Select(_ => _vm.ViewBounds)
@@ -46,7 +49,8 @@ namespace NewellClark.PathViewer.MvvmGridGraph
 				viewBoundsChanged.Subscribe(onViewBoundsChanged),
 				_control.WhenPaint().Subscribe(DrawAll),
 				_brushes, 
-				PathPen
+				PathPen,
+				Disposable.Create(() => _vm.PathFinder.ShortestPathChanged -= onPathChanged)
 			};
 		}
 

@@ -11,7 +11,7 @@ namespace NewellClark.PathViewer.MvvmGridGraph
 	/// <summary>
 	/// Represents a single node in a <see cref="GridGraph"/>.
 	/// </summary>
-	public struct GridNode : IEquatable<GridNode>, IHasNeighbors<GridNode>
+	public struct GridNode : IEquatable<GridNode>, IGraphNode<GridNode>
 	{
 		/// <summary>
 		/// Creates a new <see cref="GridNode"/> that resides in the specified

@@ -7,7 +7,7 @@ using System.Reactive.Linq;
 
 namespace NewellClark.PathViewer.ImageBasedGraphBuilder
 {
-	struct PixelNode : IHasNeighbors<PixelNode>, IEquatable<PixelNode>
+	struct PixelNode : IGraphNode<PixelNode>, IEquatable<PixelNode>
 	{
 		private readonly BitmapGraph _graph;
 

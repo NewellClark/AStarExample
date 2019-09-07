@@ -55,7 +55,7 @@ namespace NewellClark.DataStructures.Graphs
 
 		ISet<GraphNode<T>> IMutableNode<GraphNode<T>>.Neighbors => Neighbors;
 
-		IEnumerable<GraphNode<T>> IHasNeighbors<GraphNode<T>>.Neighbors => this.Neighbors;
+		IEnumerable<GraphNode<T>> IGraphNode<GraphNode<T>>.Neighbors => this.Neighbors;
 
 		/// <summary>
 		/// Overridden to return <see cref="Value"/>'s <see cref="ToString"/> method, or the empty string
