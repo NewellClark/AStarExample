@@ -10,15 +10,15 @@ namespace NewellClark.DataStructures.Graphs.Tests
 	[TestFixture]
 	public abstract class TraversalTests
 	{
-		public abstract IEnumerable<GraphNode<string>> Traverse(GraphNode<string> root);
+		public abstract IEnumerable<MutableNode<string>> Traverse(MutableNode<string> root);
 
-		private static GraphNode<string> GetNode(string text) => new GraphNode<string>(text);
+		private static MutableNode<string> GetNode(string text) => new MutableNode<string>(text);
 
-		private static GraphNode<string> GetNode() => GetNode("dummy");
+		private static MutableNode<string> GetNode() => GetNode("dummy");
 
-		private static IEnumerable<GraphNode<string>> GetNodes(int count, string text)
+		private static IEnumerable<MutableNode<string>> GetNodes(int count, string text)
 		{
-			IEnumerable<GraphNode<string>> iterator()
+			IEnumerable<MutableNode<string>> iterator()
 			{
 				for (int i = 0; i < count; i++)
 					yield return GetNode($"{text} [{i}]");
@@ -27,9 +27,9 @@ namespace NewellClark.DataStructures.Graphs.Tests
 			return iterator().ToArray();
 		}
 
-		private static IEnumerable<GraphNode<string>> GetNodes(int count) => GetNodes(count, string.Empty);
+		private static IEnumerable<MutableNode<string>> GetNodes(int count) => GetNodes(count, string.Empty);
 
-		private static IEnumerable<GraphNode<string>> GetNodes(params GraphNode<string>[] nodes) => nodes.AsEnumerable();
+		private static IEnumerable<MutableNode<string>> GetNodes(params MutableNode<string>[] nodes) => nodes.AsEnumerable();
 
 		[Test]
 		public void SingleNode()
@@ -56,9 +56,9 @@ namespace NewellClark.DataStructures.Graphs.Tests
 			const int childSiblings = 3;
 			for (int i = 0; i < childSiblings; i++) parent.Neighbors.Add(GetNode($"child sibling {i}"));
 
-			IEnumerable<GraphNode<string>> expected()
+			IEnumerable<MutableNode<string>> expected()
 			{
-				var result = new HashSet<GraphNode<string>>();
+				var result = new HashSet<MutableNode<string>>();
 				result.Add(grandparent);
 				result.Add(parent);
 				result.Add(child);
@@ -106,7 +106,7 @@ namespace NewellClark.DataStructures.Graphs.Tests
 			var extraAChildren = GetNodes(3, "A extra child");
 			extraA.Neighbors.Add(extraAChildren);
 
-			IEnumerable<GraphNode<string>> expected()
+			IEnumerable<MutableNode<string>> expected()
 			{
 				yield return a;
 				yield return b;
@@ -124,7 +124,7 @@ namespace NewellClark.DataStructures.Graphs.Tests
 		[Test]
 		public void MultipleCycles()
 		{
-			void makeCycle(GraphNode<string> a, GraphNode<string> b, GraphNode<string> c)
+			void makeCycle(MutableNode<string> a, MutableNode<string> b, MutableNode<string> c)
 			{
 				a.Neighbors.Add(b);
 				b.Neighbors.Add(c);
@@ -145,7 +145,7 @@ namespace NewellClark.DataStructures.Graphs.Tests
 			polywrath.Neighbors.Add(water);
 			polywrath.Neighbors.Add(fighting);
 
-			IEnumerable<GraphNode<string>> expected()
+			IEnumerable<MutableNode<string>> expected()
 			{
 				yield return fire;
 				yield return grass;
@@ -166,7 +166,7 @@ namespace NewellClark.DataStructures.Graphs.Tests
 		[TestFixture]
 		public class DepthFirst : TraversalTests
 		{
-			public override IEnumerable<GraphNode<string>> Traverse(GraphNode<string> root)
+			public override IEnumerable<MutableNode<string>> Traverse(MutableNode<string> root)
 			{
 				return root.TraverseDepthFirst();
 			}
@@ -175,7 +175,7 @@ namespace NewellClark.DataStructures.Graphs.Tests
 		[TestFixture]
 		public class BreadthFirst : TraversalTests
 		{
-			public override IEnumerable<GraphNode<string>> Traverse(GraphNode<string> root)
+			public override IEnumerable<MutableNode<string>> Traverse(MutableNode<string> root)
 			{
 				return root.TraverseBreadthFirst();
 			}

@@ -45,9 +45,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AStar.cs" />
-    <Compile Include="GraphNode.cs" />
+    <Compile Include="MutableNode.cs" />
     <Compile Include="GraphNode.NeighborCollection.cs">
-      <DependentUpon>GraphNode.cs</DependentUpon>
+      <DependentUpon>MutableNode.cs</DependentUpon>
     </Compile>
     <Compile Include="Interfaces.cs" />
     <Compile Include="ObservableNode.cs" />

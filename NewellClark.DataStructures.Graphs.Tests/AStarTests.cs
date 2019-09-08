@@ -16,7 +16,7 @@ namespace NewellClark.DataStructures.Graphs.Tests
 		/// <param name="first"></param>
 		/// <param name="second"></param>
 		/// <returns></returns>
-		private int CostFunction(GraphNode<int> first, GraphNode<int> second)
+		private int CostFunction(MutableNode<int> first, MutableNode<int> second)
 		{
 			return Math.Abs(first.Value - second.Value);
 		}
@@ -29,7 +29,7 @@ namespace NewellClark.DataStructures.Graphs.Tests
 		/// <param name="node">The node to connect to the new node.</param>
 		/// <param name="neighborValue">The value to give the new node.</param>
 		/// <returns>The newly-created neighbor node.</returns>
-		private GraphNode<int> Add(GraphNode<int> node, int neighborValue)
+		private MutableNode<int> Add(MutableNode<int> node, int neighborValue)
 		{
 			var neighbor = Create(neighborValue);
 			node.Neighbors.Add(neighbor);
@@ -37,7 +37,7 @@ namespace NewellClark.DataStructures.Graphs.Tests
 			return neighbor;
 		}
 
-		private GraphNode<T> Create<T>(T value) => new GraphNode<T>(value);
+		private MutableNode<T> Create<T>(T value) => new MutableNode<T>(value);
 
 		private IEnumerable<T> Iterate<T>(params T[] elements) => elements.AsEnumerable();
 
@@ -60,7 +60,7 @@ namespace NewellClark.DataStructures.Graphs.Tests
 
 			Assume.That(!start.TraverseBreadthFirst().Contains(end));
 
-			var expected = Iterate<GraphNode<int>>();
+			var expected = Iterate<MutableNode<int>>();
 			var actual = AStar.FindPath(start, end, CostFunction, CostFunction, CostAdder);
 
 			CollectionAssert.AreEqual(expected, actual);
@@ -120,7 +120,7 @@ namespace NewellClark.DataStructures.Graphs.Tests
 		[Test]
 		public void IgnoresNodes_WhenExcludedByFilter()
 		{
-			bool filter(GraphNode<int> node) => node.Value % 3 != 0;
+			bool filter(MutableNode<int> node) => node.Value % 3 != 0;
 
 			var start = Create(2);
 			var illegalCheap = Add(start, 3);
@@ -138,7 +138,7 @@ namespace NewellClark.DataStructures.Graphs.Tests
 		[Test]
 		public void FindsNoPath_WhenFilterBlocksGoal()
 		{
-			bool filter(GraphNode<int> node) => node.Value >= 0;
+			bool filter(MutableNode<int> node) => node.Value >= 0;
 
 			var start = Create(5);
 			var middle = Add(start, 7);
@@ -152,7 +152,7 @@ namespace NewellClark.DataStructures.Graphs.Tests
 		[Test]
 		public void FindsNoPath_WhenFilterBlocksStart()
 		{
-			bool filter(GraphNode<int> node) => node.Value >= 0;
+			bool filter(MutableNode<int> node) => node.Value >= 0;
 
 			var start = Create(-1);
 			var middle = Add(start, 0);

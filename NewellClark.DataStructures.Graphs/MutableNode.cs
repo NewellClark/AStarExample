@@ -10,28 +10,28 @@ namespace NewellClark.DataStructures.Graphs
 	/// A simple graph node that can connect to other nodes.
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
-	public partial class GraphNode<T> : IMutableNode<GraphNode<T>, T>
+	public partial class MutableNode<T> : IMutableNode<MutableNode<T>, T>
 	{
 		/// <summary>
-		/// Creates a new <see cref="GraphNode{T}"/> with the specified value.
+		/// Creates a new <see cref="MutableNode{T}"/> with the specified value.
 		/// </summary>
-		/// <param name="value">The value of the <see cref="GraphNode{T}"/>.</param>
-		public GraphNode(T value)
+		/// <param name="value">The value of the <see cref="MutableNode{T}"/>.</param>
+		public MutableNode(T value)
 		{
 			this.Value = value;
 			this.Neighbors = new NeighborCollection(this);
 		}
 
 		/// <summary>
-		/// Creates a new <see cref="GraphNode{T}"/> with the specified value, and the specified
+		/// Creates a new <see cref="MutableNode{T}"/> with the specified value, and the specified
 		/// collection of neighbors.
 		/// </summary>
-		/// <param name="value">The value of the <see cref="GraphNode{T}"/>.</param>
-		/// <param name="neighbors">The neighbors of the <see cref="GraphNode{T}"/>.</param>
+		/// <param name="value">The value of the <see cref="MutableNode{T}"/>.</param>
+		/// <param name="neighbors">The neighbors of the <see cref="MutableNode{T}"/>.</param>
 		/// <exception cref="ArgumentNullException">
 		/// <paramref name="neighbors"/> is null.
 		/// </exception>
-		public GraphNode(T value, IEnumerable<GraphNode<T>> neighbors)
+		public MutableNode(T value, IEnumerable<MutableNode<T>> neighbors)
 		{
 			if (neighbors is null) throw new ArgumentNullException(nameof(neighbors));
 
@@ -43,19 +43,19 @@ namespace NewellClark.DataStructures.Graphs
 		}
 
 		/// <summary>
-		/// Gets the value of the current <see cref="GraphNode{T}"/>.
+		/// Gets the value of the current <see cref="MutableNode{T}"/>.
 		/// </summary>
 		public T Value { get; }
 
 		/// <summary>
 		/// Gets a collection of all the nodes that are directly connected to the current 
-		/// <see cref="GraphNode{T}"/>.
+		/// <see cref="MutableNode{T}"/>.
 		/// </summary>
 		public NeighborCollection Neighbors { get; }
 
-		ISet<GraphNode<T>> IMutableNode<GraphNode<T>>.Neighbors => Neighbors;
+		ISet<MutableNode<T>> IMutableNode<MutableNode<T>>.Neighbors => Neighbors;
 
-		IEnumerable<GraphNode<T>> IGraphNode<GraphNode<T>>.Neighbors => this.Neighbors;
+		IEnumerable<MutableNode<T>> IGraphNode<MutableNode<T>>.Neighbors => this.Neighbors;
 
 		/// <summary>
 		/// Overridden to return <see cref="Value"/>'s <see cref="ToString"/> method, or the empty string

@@ -8,19 +8,19 @@ using NewellClark.DataStructures.Collections;
 
 namespace NewellClark.DataStructures.Graphs
 {
-	partial class GraphNode<T>
+	partial class MutableNode<T>
 	{
 		/// <summary>
-		/// A collection of neighboring <see cref="GraphNode{T}"/>s.
+		/// A collection of neighboring <see cref="MutableNode{T}"/>s.
 		/// </summary>
-		public class NeighborCollection : Set<GraphNode<T>>
+		public class NeighborCollection : Set<MutableNode<T>>
 		{
 			/// <summary>
-			/// The <see cref="GraphNode{T}"/> that owns the current <see cref="NeighborCollection"/>.
+			/// The <see cref="MutableNode{T}"/> that owns the current <see cref="NeighborCollection"/>.
 			/// </summary>
-			private readonly GraphNode<T> _owner;
+			private readonly MutableNode<T> _owner;
 
-			internal NeighborCollection(GraphNode<T> owner)
+			internal NeighborCollection(MutableNode<T> owner)
 			{
 				Debug.Assert(owner != null, $"{nameof(owner)} was null.");
 
@@ -37,7 +37,7 @@ namespace NewellClark.DataStructures.Graphs
 			/// <exception cref="ArgumentNullException">
 			/// <paramref name="node"/> was null.
 			/// </exception>
-			protected override bool AddItem(GraphNode<T> node)
+			protected override bool AddItem(MutableNode<T> node)
 			{
 				if (node == null)
 					throw new ArgumentNullException(nameof(node));
@@ -64,7 +64,7 @@ namespace NewellClark.DataStructures.Graphs
 			/// <exception cref="ArgumentNullException">
 			/// <paramref name="node"/> was null.
 			/// </exception>
-			protected override bool RemoveItem(GraphNode<T> node)
+			protected override bool RemoveItem(MutableNode<T> node)
 			{
 				if (node == null)
 					throw new ArgumentNullException(nameof(node));
@@ -78,7 +78,7 @@ namespace NewellClark.DataStructures.Graphs
 			}
 
 			/// <summary>
-			/// Removes all <see cref="GraphNode{T}"/>s from the collection.
+			/// Removes all <see cref="MutableNode{T}"/>s from the collection.
 			/// </summary>
 			protected override void ClearItems()
 			{
@@ -98,7 +98,7 @@ namespace NewellClark.DataStructures.Graphs
 			/// </summary>
 			/// <param name="node">The node to look for.</param>
 			/// <returns>True if <paramref name="node"/> is in the collection. False otherwise.</returns>
-			protected override bool ContainsItem(GraphNode<T> node)
+			protected override bool ContainsItem(MutableNode<T> node)
 			{
 				if (node == null)
 					throw new ArgumentNullException(nameof(node));

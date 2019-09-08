@@ -41,9 +41,9 @@ namespace NewellClark.DataStructures.Graphs
 	}
 
 	[TestFixture]
-	public class GraphNodeTests : MutableNodeTests<GraphNode<string>>
+	public class GraphNodeTests : MutableNodeTests<MutableNode<string>>
 	{
-		protected override GraphNode<string> GetNode(string text) => new GraphNode<string>(text);
+		protected override MutableNode<string> GetNode(string text) => new MutableNode<string>(text);
 	}
 
 	[TestFixture]

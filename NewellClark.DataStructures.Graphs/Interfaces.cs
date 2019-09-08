@@ -46,7 +46,7 @@ namespace NewellClark.DataStructures.Graphs
 		TValue Value { get; }
 	}
 
-	public static class NodeExtensions
+	public static class GraphNode
 	{
 		/// <summary>
 		/// Performs a depth-first traversal of the specified node.
