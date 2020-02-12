@@ -51,6 +51,8 @@ namespace NewellClark.PathViewer.MvvmGridGraph
 				_brushes, 
 				PathPen,
 				Disposable.Create(() => _vm.PathFinder.ShortestPathChanged -= onPathChanged)
+
+                
 			};
 		}
 

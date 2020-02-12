@@ -112,7 +112,7 @@ namespace NewellClark.PathViewer
 		{
 			if (IsDisposed)
 				return;
-
+            
 			Enabled = false;
 			_EnabledChanged = null;
 			IsDisposed = true;

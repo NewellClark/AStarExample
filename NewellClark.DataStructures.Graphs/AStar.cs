@@ -51,8 +51,8 @@ namespace NewellClark.DataStructures.Graphs
 			TCost initialCost)
 			where TNode : IGraphNode<TNode>
 		{
-			if (ReferenceEquals(start, null)) throw new ArgumentNullException(nameof(start));
-			if (ReferenceEquals(goal, null)) throw new ArgumentNullException(nameof(goal));
+			if (start == null) throw new ArgumentNullException(nameof(start));
+			if (goal == null) throw new ArgumentNullException(nameof(goal));
 			if (knownCost is null) throw new ArgumentNullException(nameof(knownCost));
 			if (estimatedCost is null) throw new ArgumentNullException(nameof(estimatedCost));
 			if (costAdder is null) throw new ArgumentNullException(nameof(costAdder));

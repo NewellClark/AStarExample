@@ -50,34 +50,6 @@ namespace NewellClark.PathViewer.MvvmGridGraph
 			}
 		}
 
-		//public bool IsStartNode
-		//{
-		//	get => Graph?.StartNode == Position;
-		//	set
-		//	{
-		//		ThrowIfInvalid();
-				
-		//		if (value)
-		//			Graph.StartNode = Position;
-		//		else if (Graph.StartNode == Position)
-		//			Graph.StartNode = null;
-		//	}
-		//}
-
-		//public bool IsGoalNode
-		//{
-		//	get => Graph?.GoalNode == Position;
-		//	set
-		//	{
-		//		ThrowIfInvalid();
-
-		//		if (value)
-		//			Graph.GoalNode = Position;
-		//		else if (Graph.GoalNode == Position)
-		//			Graph.GoalNode = null;
-		//	}
-		//}
-
 		/// <summary>
 		/// Gets all the nodes that are adjacent to the current <see cref="GridNode"/>.
 		/// </summary>

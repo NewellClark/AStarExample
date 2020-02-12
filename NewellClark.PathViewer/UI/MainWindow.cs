@@ -16,7 +16,6 @@ namespace NewellClark.PathViewer.UI
 		public MainWindow()
 		{
 			InitializeComponent();
-
 		}
 
 		private void MainWindow_Load(object sender, EventArgs e)

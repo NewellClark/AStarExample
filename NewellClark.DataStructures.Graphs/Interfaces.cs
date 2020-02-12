@@ -24,7 +24,7 @@ namespace NewellClark.DataStructures.Graphs
 	/// <typeparam name="TNode">Type of node.</typeparam>
 	public interface IMutableNode<TNode> : IGraphNode<TNode>
 		where TNode : IMutableNode<TNode>
-	{
+    {
 		/// <summary>
 		/// Gets a set containing all neighbor nodes of the current <see cref="IMutableNode{TNode}"/>.
 		/// </summary>

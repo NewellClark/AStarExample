@@ -19,7 +19,7 @@ namespace NewellClark.PathViewer.MvvmGridGraph
 		public GridDisplayPanelUC()
 		{
 			InitializeComponent();
-
+            
 			_disposables = InitiializeEventHandlers();
 		}
 
